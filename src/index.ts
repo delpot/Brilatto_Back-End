@@ -1,0 +1,16 @@
+import dotenv from 'dotenv-safe';
+import express from 'express';
+import mongoose from 'mongoose';
+
+console.clear();
+console.log('********* START *********');
+dotenv.config();
+const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;
+const app = express();
+mongoose
+  .connect(dsn as string)
+  .then(() => console.log('Brilatto Database successfully connected!'))
+  .catch((err) => console.log(err));
+app.listen(port, () => {
+  console.log(`Brilatto Back-End server is running at http://${hostname}:${port}`);
+});
