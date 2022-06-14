@@ -6,19 +6,19 @@ export interface IBase extends Document {
   deletedAt: Date;
 }
 
-export const BaseEntity: Model<IBase> = model(
-  'BaseEntity',
-  new Schema({
-    createdAt: {
-      type: Date,
-      default: new Date(),
-    },
-    updatedAt: {
-      type: Date,
-      default: new Date(),
-    },
-    deletedAt: {
-      type: Date,
-    },
-  })
-);
+export const BaseSchema = new Schema({
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
+  updatedAt: {
+    type: Date,
+    default: new Date(),
+  },
+  deletedAt: {
+    type: Date,
+    default: null,
+  },
+});
+
+export const BaseEntity: Model<IBase> = model('BaseEntity', BaseSchema);

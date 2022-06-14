@@ -1,5 +1,5 @@
-import { Schema, Model, Document, Types } from 'mongoose';
-import { IBase, BaseEntity } from './BaseEntity';
+import { Schema, Model, model, Document } from 'mongoose';
+import { BaseSchema, IBase } from './BaseEntity';
 
 export interface IAddress {
   addressLine1: string;
@@ -18,9 +18,10 @@ interface IUser extends IBase, Document {
   address?: IAddress;
 }
 
-const User: Model<IUser> = BaseEntity.discriminator(
+const User: Model<IUser> = model(
   'User',
   new Schema({
+    ...BaseSchema.obj,
     lastname: {
       type: String,
       required: true,

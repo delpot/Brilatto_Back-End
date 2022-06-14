@@ -1,5 +1,5 @@
-import { Schema, Model, Types } from 'mongoose';
-import { IBase, BaseEntity } from './BaseEntity';
+import { Schema, Model, model, Types } from 'mongoose';
+import { IBase, BaseSchema } from './BaseEntity';
 import { IJewelModel } from './JewelModel';
 
 interface IJewelCategory extends IBase {
@@ -8,9 +8,10 @@ interface IJewelCategory extends IBase {
   models: IJewelModel[];
 }
 
-const JewelCategory: Model<IJewelCategory> = BaseEntity.discriminator(
+const JewelCategory: Model<IJewelCategory> = model(
   'JewelCategory',
   new Schema({
+    ...BaseSchema.obj,
     name: {
       type: String,
       required: true,

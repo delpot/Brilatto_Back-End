@@ -1,5 +1,5 @@
-import { Schema, Model, Types } from 'mongoose';
-import { BaseEntity, IBase } from './BaseEntity';
+import { Schema, Model, model, Types } from 'mongoose';
+import { BaseSchema, IBase } from './BaseEntity';
 import { IJewel } from './Jewel';
 
 export interface ICart extends IBase {
@@ -8,24 +8,24 @@ export interface ICart extends IBase {
   total: number;
 }
 
-const Cart: Model<ICart> = BaseEntity.discriminator(
-  'Cart',
-  new Schema({
-    userId: {
-      type: String,
-      required: true,
+export const CartSchema = new Schema({
+  ...BaseSchema.obj,
+  userId: {
+    type: String,
+    required: true,
+  },
+  jewels: [
+    {
+      type: Types.ObjectId,
+      ref: 'Jewel',
     },
-    jewels: [
-      {
-        type: Types.ObjectId,
-        ref: 'Jewel',
-      },
-    ],
-    total: {
-      type: Number,
-      required: true,
-    },
-  })
-);
+  ],
+  total: {
+    type: Number,
+    required: true,
+  },
+});
+
+const Cart: Model<ICart> = model('Cart', CartSchema);
 
 export default Cart;
