@@ -1,6 +1,5 @@
-import { Schema, Model } from 'mongoose';
-import { BaseEntity } from './BaseEntity';
-import { ICart } from './Cart';
+import { Schema, Model, model } from 'mongoose';
+import { CartSchema, ICart } from './Cart';
 import { IAddress } from './User';
 
 interface IOrder extends ICart {
@@ -8,9 +7,10 @@ interface IOrder extends ICart {
   status: string;
 }
 
-const Order: Model<IOrder> = BaseEntity.discriminator(
+const Order: Model<IOrder> = model(
   'Order',
   new Schema({
+    ...CartSchema.obj,
     shippingAddress: {
       type: Object,
       required: true,
