@@ -5,6 +5,7 @@ import {
   findUserByIdAndUpdate,
   findUserById,
   findUserByEmail,
+  findUsers,
 } from '../repositories/user.repository';
 import { IUser } from 'src/models/User';
 import { UserDto } from 'src/dtos/user.dto';
@@ -16,6 +17,10 @@ export function createUser(
   password: string
 ) {
   return create(firstname, lastname, email, password);
+}
+
+export async function getUsers(): Promise<IUser[]> {
+  return findUsers();
 }
 
 export async function getUserById(id: string): Promise<IUser> {

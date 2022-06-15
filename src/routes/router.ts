@@ -9,11 +9,13 @@ import {
   updateUser,
   softDeleteUser,
   hardDeleteUser,
-  getUser,
+  getOneUser,
+  getAllUsers,
 } from '../controllers/user.controller';
 
 const router = Router();
-router.get('/:id', verifyAdmin, getUser);
+router.get('/', verifyAdmin, getAllUsers);
+router.get('/:id', verifyAdmin, getOneUser);
 router.post('/signup', signup);
 router.post('/login', login);
 router.put('/:id', verifyAuthorization, updateUser);

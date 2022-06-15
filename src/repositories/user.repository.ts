@@ -10,6 +10,10 @@ export function create(
   return new User({ firstname, lastname, email, password });
 }
 
+export async function findUsers(): Promise<IUser[]> {
+  return User.find({ deletedAt: null });
+}
+
 export async function findUserById(id: string): Promise<IUser> {
   return User.findById(id);
 }
