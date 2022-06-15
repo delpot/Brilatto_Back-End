@@ -1,3 +1,4 @@
+import { UserDto } from 'src/dtos/user.dto';
 import User, { IUser } from '../models/User';
 
 export function create(
@@ -11,4 +12,17 @@ export function create(
 
 export async function findByEmail(email: string): Promise<IUser> {
   return User.findOne({ email });
+}
+
+export async function findUserByIdAndUpdate(
+  id: string,
+  body: UserDto
+): Promise<IUser> {
+  return User.findByIdAndUpdate(
+    id,
+    {
+      $set: body,
+    },
+    { new: true }
+  );
 }

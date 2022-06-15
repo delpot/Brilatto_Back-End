@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import { decryptPassword, encryptPassword } from 'src/utils/encryption.util';
-import { getUserByEmail, createUser } from '../services/user.service';
+import {
+  getUserByEmail,
+  createUser,
+  getUserByIdAndUpdate,
+} from '../services/user.service';
 import jwt from 'jsonwebtoken';
 
 export async function signup(req: Request, res: Response) {
@@ -52,7 +56,7 @@ export async function login(req: Request, res: Response) {
         id: user._id,
         isAdmin: user.isAdmin,
       },
-      process.env.SECRET_JWT,
+      process.env.JWT_SECRET,
       {
         expiresIn: '1h',
       }
@@ -62,4 +66,16 @@ export async function login(req: Request, res: Response) {
   } else {
     return res.send({ message: '⚠ Wrong credentials!' });
   }
+}
+
+export async function updateUser(req: Request, res: Response) {
+  if (req.body.password) {
+    encryptPassword(req.body.password);
+  }
+
+  return getUserByIdAndUpdate(req.params.id, req.body)
+    .then((updatedUser) => {
+      res.status(201).json(updatedUser);
+    })
+    .catch((error) => res.status(500).json(error));
 }
