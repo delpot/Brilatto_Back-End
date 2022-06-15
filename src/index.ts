@@ -4,7 +4,8 @@ console.log('********* START *********');
 import dotenv from 'dotenv-safe';
 import express from 'express';
 import mongoose from 'mongoose';
-import router from './routes/router';
+import authRouter from './routes/auth.router';
+import usersRouter from './routes/users.router';
 
 dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;
@@ -16,7 +17,8 @@ mongoose
 
 const app = express();
 app.use(express.json());
-app.use('/api/auth', router);
+app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
 
 app.listen(port, () => {
   console.log(
