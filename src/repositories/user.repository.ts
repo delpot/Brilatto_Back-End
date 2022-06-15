@@ -10,7 +10,11 @@ export function create(
   return new User({ firstname, lastname, email, password });
 }
 
-export async function findByEmail(email: string): Promise<IUser> {
+export async function findUserById(id: string): Promise<IUser> {
+  return User.findById(id);
+}
+
+export async function findUserByEmail(email: string): Promise<IUser> {
   return User.findOne({ email });
 }
 

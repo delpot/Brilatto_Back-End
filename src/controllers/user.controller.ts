@@ -6,8 +6,18 @@ import {
   getUserByIdAndUpdate,
   getUserByIdAndHardDelete,
   getUserByIdAndSoftDelete,
+  getUserById,
 } from '../services/user.service';
 import jwt from 'jsonwebtoken';
+
+export async function getUser(req: Request, res: Response) {
+  return getUserById(req.params.id)
+    .then((user) => {
+      const { password, ...foundUser } = user.toObject();
+      return res.status(200).json(foundUser);
+    })
+    .catch((error) => res.status(500).json(error));
+}
 
 export async function signup(req: Request, res: Response) {
   const { firstname, lastname, email, passwordToConfirm, confirmedPassword } =
@@ -64,7 +74,7 @@ export async function login(req: Request, res: Response) {
       }
     );
     const { password, ...loggedUser } = user.toObject();
-    return res.status(201).json({ loggedUser, token });
+    return res.status(200).json({ loggedUser, token });
   } else {
     return res.send({ message: '⚠ Wrong credentials!' });
   }

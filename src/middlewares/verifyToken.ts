@@ -30,3 +30,17 @@ export function verifyTokenAndAuthorization(
     }
   });
 }
+
+export function verifyTokenAndAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  verifyToken(req, res, () => {
+    if (res.locals.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).json("⚠ You aren't authorized!");
+    }
+  });
+}
