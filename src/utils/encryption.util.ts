@@ -1,11 +1,15 @@
 import CryptoJS from 'crypto-js';
 
-export function encryptPassword(password: string): string {
-  return CryptoJS.AES.encrypt(password, process.env.SECRET_KEY).toString();
+export function encryptPassword(plainPassword: string): string {
+  return CryptoJS.AES.encrypt(
+    plainPassword,
+    process.env.CRYPTO_SECRET
+  ).toString();
 }
 
-export function decryptPassword(encryption: string): string {
-  return CryptoJS.AES.decrypt(encryption, process.env.SECRET_KEY).toString(
-    CryptoJS.enc.Utf8
-  );
+export function decryptPassword(encryptedPassword: string): string {
+  return CryptoJS.AES.decrypt(
+    encryptedPassword,
+    process.env.CRYPTO_SECRET
+  ).toString(CryptoJS.enc.Utf8);
 }
