@@ -29,3 +29,19 @@ export async function findUserByIdAndUpdate(
     { new: true }
   );
 }
+
+export async function findUserByIdAndSoftDelete(id: string): Promise<IUser> {
+  return User.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        deletedAt: new Date(),
+      },
+    },
+    { new: true }
+  );
+}
+
+export async function findUserByIdAndHardDelete(id: string): Promise<void> {
+  return User.findByIdAndDelete(id);
+}

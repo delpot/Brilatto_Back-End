@@ -1,6 +1,8 @@
 import {
   create,
   findByEmail,
+  findUserByIdAndHardDelete,
+  findUserByIdAndSoftDelete,
   findUserByIdAndUpdate,
 } from '../repositories/user.repository';
 import { IUser } from 'src/models/User';
@@ -24,4 +26,12 @@ export async function getUserByIdAndUpdate(
   body: UserDto
 ): Promise<IUser> {
   return findUserByIdAndUpdate(id, body);
+}
+
+export async function getUserByIdAndSoftDelete(id: string): Promise<IUser> {
+  return findUserByIdAndSoftDelete(id);
+}
+
+export async function getUserByIdAndHardDelete(id: string): Promise<void> {
+  return findUserByIdAndHardDelete(id);
 }

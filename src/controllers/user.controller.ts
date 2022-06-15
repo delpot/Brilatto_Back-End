@@ -4,6 +4,8 @@ import {
   getUserByEmail,
   createUser,
   getUserByIdAndUpdate,
+  getUserByIdAndHardDelete,
+  getUserByIdAndSoftDelete,
 } from '../services/user.service';
 import jwt from 'jsonwebtoken';
 
@@ -76,6 +78,22 @@ export async function updateUser(req: Request, res: Response) {
   return getUserByIdAndUpdate(req.params.id, req.body)
     .then((updatedUser) => {
       res.status(201).json(updatedUser);
+    })
+    .catch((error) => res.status(500).json(error));
+}
+
+export async function softDeleteUser(req: Request, res: Response) {
+  return getUserByIdAndSoftDelete(req.params.id)
+    .then((softDeletedUser) => {
+      res.status(201).json(softDeletedUser);
+    })
+    .catch((error) => res.status(500).json(error));
+}
+
+export async function hardDeleteUser(req: Request, res: Response) {
+  return getUserByIdAndHardDelete(req.params.id)
+    .then((deletedUser) => {
+      res.status(200).json(deletedUser);
     })
     .catch((error) => res.status(500).json(error));
 }
