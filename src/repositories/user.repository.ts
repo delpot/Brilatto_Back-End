@@ -21,7 +21,10 @@ export async function findUserByIdAndUpdate(
   return User.findByIdAndUpdate(
     id,
     {
-      $set: body,
+      $set: {
+        ...body,
+        updatedAt: new Date(),
+      },
     },
     { new: true }
   );
