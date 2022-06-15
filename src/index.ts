@@ -10,7 +10,7 @@ dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;
 
 mongoose
-  .connect(dsn as string)
+  .connect(dsn)
   .then(() => console.log('Brilatto Database successfully connected!'))
   .catch((err) => console.log(err));
 
