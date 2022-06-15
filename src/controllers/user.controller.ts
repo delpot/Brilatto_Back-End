@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import { IUser } from 'src/models/User';
 import { decryptPassword, encryptPassword } from 'src/utils/encryption.util';
 import { getUserByEmail, createUser } from '../services/user.service';
+import jwt from 'jsonwebtoken';
 
 export async function signup(req: Request, res: Response) {
   const { firstname, lastname, email, passwordToConfirm, confirmedPassword } =
@@ -46,14 +46,20 @@ export async function login(req: Request, res: Response) {
   }
 
   const user = await getUserByEmail(email);
-  if (user) {
-    if (pwd === decryptPassword(user.password)) {
-      const { password, ...others } = user.toObject();
-      return res.status(201).json(others);
-    } else {
-      return res.send({ message: '⚠ Wrong password!' });
-    }
+  if (user && pwd === decryptPassword(user.password)) {
+    const token = jwt.sign(
+      {
+        id: user._id,
+        isAdmin: user.isAdmin,
+      },
+      process.env.SECRET_JWT,
+      {
+        expiresIn: '1h',
+      }
+    );
+    const { password, ...loggedUser } = user.toObject();
+    return res.status(201).json({ loggedUser, token });
   } else {
-    return res.send({ message: "⚠ This email doesn't exist!" });
+    return res.send({ message: '⚠ Wrong credentials!' });
   }
 }
