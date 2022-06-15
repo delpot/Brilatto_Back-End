@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import {
-  verifyTokenAndAdmin,
-  verifyTokenAndAuthorization,
-} from 'src/middlewares/verifyToken';
+  verifyAdmin,
+  verifyAuthorization,
+} from 'src/middlewares/auth.middleware';
 import {
   signup,
   login,
@@ -13,11 +13,11 @@ import {
 } from '../controllers/user.controller';
 
 const router = Router();
-router.get('/:id', verifyTokenAndAdmin, getUser);
+router.get('/:id', verifyAdmin, getUser);
 router.post('/signup', signup);
 router.post('/login', login);
-router.put('/:id', verifyTokenAndAuthorization, updateUser);
-router.put('/:id/softDelete', verifyTokenAndAuthorization, softDeleteUser);
-router.delete('/:id', verifyTokenAndAuthorization, hardDeleteUser);
+router.put('/:id', verifyAuthorization, updateUser);
+router.put('/:id/softDelete', verifyAuthorization, softDeleteUser);
+router.delete('/:id', verifyAuthorization, hardDeleteUser);
 
 export default router;
