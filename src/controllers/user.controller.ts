@@ -13,14 +13,15 @@ export async function signup(req: Request, res: Response) {
     !passwordToConfirm ||
     !confirmedPassword
   ) {
-    res.send({ message: '⚠ Missing fields!' });
+    return res.send({ message: '⚠ Missing fields!' });
   }
 
-  (await getUserByEmail(email)) ??
-    res.send({ message: '⚠ User already exists!' });
+  if (await getUserByEmail(email)) {
+    return res.send({ message: '⚠ User already exists!' });
+  }
 
   if (passwordToConfirm !== confirmedPassword) {
-    res.send({ message: "⚠ Passwords don't match!" });
+    return res.send({ message: "⚠ Passwords don't match!" });
   }
 
   return createUser(
