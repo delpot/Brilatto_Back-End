@@ -16,22 +16,18 @@ export async function signup(req: Request, res: Response) {
     res.send({ message: '⚠ Missing fields!' });
   }
 
-  return getUserByEmail(email)
-    .then(async (user) => {
-      if (user) {
-        res.send({ message: '⚠ User already exists!' });
-      } else {
-        if (passwordToConfirm !== confirmedPassword) {
-          res.send({ messsage: "⚠ Passwords don't match!" });
-        }
-        const hashedPassword = await hashPassword(confirmedPassword);
-        await createUser(firstname, lastname, email, hashedPassword)
-          .save()
-          .then((createdUser) => {
-            res.status(201).json(createdUser);
-          })
-          .catch((err) => res.status(500).json(err));
-      }
+  (await getUserByEmail(email)) ??
+    res.send({ message: '⚠ User already exists!' });
+
+  if (passwordToConfirm !== confirmedPassword) {
+    res.send({ message: "⚠ Passwords don't match!" });
+  }
+
+  const hashedPassword = await hashPassword(confirmedPassword);
+  return createUser(firstname, lastname, email, hashedPassword)
+    .save()
+    .then((createdUser) => {
+      res.status(201).json(createdUser);
     })
-    .catch((err) => res.status(500).json(err));
+    .catch((error) => res.status(500).json(error));
 }
