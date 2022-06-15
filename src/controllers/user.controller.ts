@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { hashPassword } from 'src/utils/encryption.util';
 import { getUserByEmail, createUser } from '../services/user.service';
 
 export async function signup(req: Request, res: Response) {
@@ -16,14 +17,15 @@ export async function signup(req: Request, res: Response) {
   }
 
   return getUserByEmail(email)
-    .then((user) => {
+    .then(async (user) => {
       if (user) {
         res.send({ message: '⚠ User already exists!' });
       } else {
         if (passwordToConfirm !== confirmedPassword) {
           res.send({ messsage: "⚠ Passwords don't match!" });
         }
-        createUser(firstname, lastname, email, confirmedPassword)
+        const hashedPassword = await hashPassword(confirmedPassword);
+        await createUser(firstname, lastname, email, hashedPassword)
           .save()
           .then((createdUser) => {
             res.status(201).json(createdUser);
