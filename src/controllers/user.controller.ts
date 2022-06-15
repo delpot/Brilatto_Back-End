@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { IUser } from 'src/models/User';
 import { getUserByEmail, createUser } from '../services/user.service';
 
 export async function signup(req: Request, res: Response) {
