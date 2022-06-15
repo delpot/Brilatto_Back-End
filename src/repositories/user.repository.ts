@@ -1,12 +1,14 @@
-import User from '../models/User';
+import User, { IUser } from '../models/User';
 
-const create = (
+export function create(
   firstname: string,
   lastname: string,
   email: string,
   password: string
-) => new User({ firstname, lastname, email, password });
+) {
+  return new User({ firstname, lastname, email, password });
+}
 
-const findByEmail = (email: string) => User.findOne({ email });
-
-export default { create, findByEmail };
+export async function findByEmail(email: string): Promise<IUser> {
+  return User.findOne({ email });
+}

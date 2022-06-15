@@ -9,7 +9,7 @@ export interface IAddress {
   addressLine2?: string;
 }
 
-interface IUser extends IBase, Document {
+export interface IUser extends IBase, Document {
   lastname: string;
   firstname: string;
   email: string;

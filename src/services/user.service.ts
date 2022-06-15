@@ -1,12 +1,21 @@
-import UserRepository from '../repositories/user.repository';
+import { create, findByEmail } from '../repositories/user.repository';
+import bcrypt from 'bcrypt';
+import { IUser } from 'src/models/User';
 
-const createUser = (
+async function hashPassword(password: string) {
+  const salt = await bcrypt.genSalt(10);
+  return bcrypt.hash(password, salt);
+}
+
+export function createUser(
   firstname: string,
   lastname: string,
   email: string,
   password: string
-) => UserRepository.create(firstname, lastname, email, password);
+) {
+  return create(firstname, lastname, email, password);
+}
 
-const getUserByEmail = (email: string) => UserRepository.findByEmail(email);
-
-export default { createUser, getUserByEmail };
+export async function getUserByEmail(email: string): Promise<IUser> {
+  return findByEmail(email);
+}
