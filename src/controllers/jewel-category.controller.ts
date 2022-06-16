@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import {
   createJewelCategory,
   getCategoryByIdAndUpdate,
-} from '../services/jewelCategory.service';
+} from '../services/jewel-category.service';
 
 export async function createCategory(req: Request, res: Response) {
   return createJewelCategory(req.body.name)

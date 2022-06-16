@@ -5,8 +5,8 @@ import dotenv from 'dotenv-safe';
 import express from 'express';
 import mongoose from 'mongoose';
 import authRouter from './routes/auth.router';
-import usersRouter from './routes/users.router';
-import categoriesRouter from './routes/jewelCategories.router';
+import usersRouter from './routes/user.router';
+import categoriesRouter from './routes/jewel-category.router';
 
 dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;

@@ -3,7 +3,7 @@ import { IJewelCategory } from '../models/JewelCategory';
 import {
   create,
   findCategoryByIdAndUpdate,
-} from '../repositories/jewelCategory.repository';
+} from '../repositories/jewel-category.repository';
 
 export function createJewelCategory(name: string) {
   return create(name);

@@ -3,7 +3,7 @@ import { verifyAdmin } from '../middlewares/auth.middleware';
 import {
   createCategory,
   updateCategory,
-} from '../controllers/jewelCategory.controller';
+} from '../controllers/jewel-category.controller';
 
 const router = Router();
 router.post('/add', verifyAdmin, createCategory);
