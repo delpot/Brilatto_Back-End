@@ -33,9 +33,9 @@ export async function getUserByEmail(email: string): Promise<IUser> {
 
 export async function getUserByIdAndUpdate(
   id: string,
-  body: UserDto
+  userDto: UserDto
 ): Promise<IUser> {
-  return findUserByIdAndUpdate(id, body);
+  return findUserByIdAndUpdate(id, userDto);
 }
 
 export async function getUserByIdAndSoftDelete(id: string): Promise<IUser> {

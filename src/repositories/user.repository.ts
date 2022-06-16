@@ -24,13 +24,13 @@ export async function findUserByEmail(email: string): Promise<IUser> {
 
 export async function findUserByIdAndUpdate(
   id: string,
-  body: UserDto
+  userDto: UserDto
 ): Promise<IUser> {
   return User.findByIdAndUpdate(
     id,
     {
       $set: {
-        ...body,
+        ...userDto,
         updatedAt: new Date(),
       },
     },
