@@ -11,7 +11,7 @@ export function create(
 }
 
 export async function findUsers(): Promise<IUser[]> {
-  return User.find({ deletedAt: null });
+  return User.find({ deletedAt: null }).sort({ _id: -1 });
 }
 
 export async function findUserById(id: string): Promise<IUser> {
