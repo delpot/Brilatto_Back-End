@@ -16,10 +16,6 @@ const JewelCategory: Model<IJewelCategory> = model(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-      required: true,
-    },
     models: [
       {
         type: Types.ObjectId,
