@@ -1,4 +1,4 @@
-import { UserDto } from 'src/dtos/user.dto';
+import { UserDto } from '../dtos/user.dto';
 import User, { IUser } from '../models/User';
 
 export function create(

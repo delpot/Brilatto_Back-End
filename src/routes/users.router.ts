@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   verifyAdmin,
   verifyAuthorization,
-} from 'src/middlewares/auth.middleware';
+} from '../middlewares/auth.middleware';
 import {
   updateUser,
   softDeleteUser,

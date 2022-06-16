@@ -7,8 +7,8 @@ import {
   findUserByEmail,
   findUsers,
 } from '../repositories/user.repository';
-import { IUser } from 'src/models/User';
-import { UserDto } from 'src/dtos/user.dto';
+import { IUser } from '../models/User';
+import { UserDto } from '../dtos/user.dto';
 
 export function createUser(
   firstname: string,

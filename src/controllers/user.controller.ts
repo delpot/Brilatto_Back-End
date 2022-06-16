@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { decryptPassword, encryptPassword } from 'src/utils/encryption.util';
+import { decryptPassword, encryptPassword } from '../utils/encryption.util';
 import {
   getUserByEmail,
   createUser,
