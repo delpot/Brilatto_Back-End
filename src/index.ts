@@ -6,6 +6,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import authRouter from './routes/auth.router';
 import usersRouter from './routes/users.router';
+import categoriesRouter from './routes/jewelCategories.router';
 
 dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;
@@ -19,6 +20,7 @@ const app = express();
 app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/categories', categoriesRouter);
 
 app.listen(port, () => {
   console.log(
