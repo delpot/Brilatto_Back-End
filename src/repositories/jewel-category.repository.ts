@@ -20,3 +20,21 @@ export async function findCategoryByIdAndUpdate(
     { new: true }
   );
 }
+
+export async function findCategoryByIdAndSoftDelete(
+  id: string
+): Promise<IJewelCategory> {
+  return JewelCategory.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        deletedAt: new Date(),
+      },
+    },
+    { new: true }
+  );
+}
+
+export async function findCategoryByIdAndHardDelete(id: string): Promise<void> {
+  return JewelCategory.findByIdAndDelete(id);
+}
