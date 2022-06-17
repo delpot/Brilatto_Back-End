@@ -5,6 +5,14 @@ export function create(name: string) {
   return new JewelCategory({ name });
 }
 
+export async function findCategories(): Promise<IJewelCategory[]> {
+  return JewelCategory.find({ deletedAt: null }).sort({ _id: -1 });
+}
+
+export async function findCategoryById(id: string): Promise<IJewelCategory> {
+  return JewelCategory.findById(id);
+}
+
 export async function findCategoryByIdAndUpdate(
   id: string,
   jewelCategoryDto: JewelCategoryDto
