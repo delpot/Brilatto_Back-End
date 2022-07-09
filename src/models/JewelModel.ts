@@ -3,23 +3,26 @@ import { BaseSchema, IBase } from './BaseEntity';
 import { IJewel } from './Jewel';
 
 export interface IJewelModel extends IBase {
-  name: string;
-  description: string;
-  jewels: IJewel[];
   categoryId: string;
+  name: string;
+  description?: string;
+  jewels?: IJewel[];
 }
 
 const JewelModel: Model<IJewelModel> = model(
   'JewelModel',
   new Schema({
     ...BaseSchema.obj,
+    categoryId: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
     description: {
       type: String,
-      required: true,
     },
     jewels: [
       {
@@ -27,10 +30,6 @@ const JewelModel: Model<IJewelModel> = model(
         ref: 'Jewel',
       },
     ],
-    categoryId: {
-      type: String,
-      required: true,
-    },
   })
 );
 
