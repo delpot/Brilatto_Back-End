@@ -2,7 +2,6 @@ import { Schema, Model, model } from 'mongoose';
 import { BaseSchema, IBase } from './BaseEntity';
 
 export interface IJewel extends IBase {
-  categoryId: string;
   modelId: string;
   color: string;
   photo: string;
@@ -14,10 +13,6 @@ const Jewel: Model<IJewel> = model(
   'Jewel',
   new Schema({
     ...BaseSchema.obj,
-    categoryId: {
-      type: String,
-      required: true,
-    },
     modelId: {
       type: String,
       required: true,
