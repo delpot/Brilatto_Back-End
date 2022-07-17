@@ -1,5 +1,5 @@
 import { JewelCategoryDto } from '../dtos/jewel-category.dto';
-import { IJewelCategory } from '../models/JewelCategory';
+import { IJewelCategory } from '../entities/JewelCategory';
 import {
   create,
   findCategoryByIdAndSoftDelete,

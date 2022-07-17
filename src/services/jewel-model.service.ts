@@ -6,7 +6,7 @@ import {
   findModelByIdAndUpdate,
   findModels,
 } from '../repositories/jewel-model.repository';
-import { IJewelModel } from '../models/JewelModel';
+import { IJewelModel } from '../entities/JewelModel';
 import { JewelModelDto } from '../dtos/jewel-model.dto';
 
 export function createJewelModel(

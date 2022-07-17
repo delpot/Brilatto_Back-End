@@ -1,5 +1,5 @@
 import { JewelCategoryDto } from '../dtos/jewel-category.dto';
-import JewelCategory, { IJewelCategory } from '../models/JewelCategory';
+import JewelCategory, { IJewelCategory } from '../entities/JewelCategory';
 
 export function create(name: string) {
   return new JewelCategory({ name });

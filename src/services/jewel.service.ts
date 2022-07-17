@@ -1,4 +1,4 @@
-import { IJewel } from 'src/models/Jewel';
+import { IJewel } from 'src/entities/Jewel';
 import {
   create,
   findJewelById,

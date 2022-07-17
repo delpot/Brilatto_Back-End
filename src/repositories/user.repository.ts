@@ -1,5 +1,5 @@
 import { UserDto } from '../dtos/user.dto';
-import User, { IUser } from '../models/User';
+import User, { IUser } from '../entities/User';
 
 export function create(
   firstname: string,

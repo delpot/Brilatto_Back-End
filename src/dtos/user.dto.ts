@@ -1,4 +1,4 @@
-import { IAddress } from '../models/User';
+import { IAddress } from '../entities/User';
 
 export class UserDto {
   lastname?: string;

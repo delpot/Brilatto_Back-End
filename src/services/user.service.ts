@@ -7,7 +7,7 @@ import {
   findUserByEmail,
   findUsers,
 } from '../repositories/user.repository';
-import { IUser } from '../models/User';
+import { IUser } from '../entities/User';
 import { UserDto } from '../dtos/user.dto';
 
 export function createUser(
