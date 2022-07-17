@@ -19,8 +19,8 @@ export async function getAllJewels(req: Request, res: Response) {
 export async function getOneJewel(req: Request, res: Response) {
   return getJewelById(req.params.id)
     .then((jewel) => {
-      const { password, ...foundModel } = jewel.toObject();
-      return res.status(200).json(foundModel);
+      const { password, ...foundJewel } = jewel.toObject();
+      return res.status(200).json(foundJewel);
     })
     .catch((error) => res.status(500).json(error));
 }
@@ -37,16 +37,16 @@ export async function createJewel(req: Request, res: Response) {
 
 export async function updateJewel(req: Request, res: Response) {
   return getJewelByIdAndUpdate(req.params.id, req.body)
-    .then((updatedModel) => {
-      res.status(201).json(updatedModel);
+    .then((updatedJewel) => {
+      res.status(201).json(updatedJewel);
     })
     .catch((error) => res.status(500).json(error));
 }
 
 export async function softDeleteJewel(req: Request, res: Response) {
   return getJewelByIdAndSoftDelete(req.params.id)
-    .then((softDeletedModel) => {
-      res.status(201).json(softDeletedModel);
+    .then((softDeletedJewel) => {
+      res.status(201).json(softDeletedJewel);
     })
     .catch((error) => res.status(500).json(error));
 }
