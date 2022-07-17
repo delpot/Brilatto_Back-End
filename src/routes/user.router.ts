@@ -11,11 +11,9 @@ import {
   getAllUsers,
 } from '../controllers/user.controller';
 
-const router = Router();
-router.get('/', verifyAdmin, getAllUsers);
-router.get('/:id', verifyAdmin, getOneUser);
-router.put('/:id', verifyAuthorization, updateUser);
-router.put('/:id/softDelete', verifyAuthorization, softDeleteUser);
-router.delete('/:id', verifyAdmin, hardDeleteUser);
-
-export default router;
+export const usersRouter = Router()
+  .get('/', verifyAdmin, getAllUsers)
+  .get('/:id', verifyAdmin, getOneUser)
+  .put('/:id', verifyAuthorization, updateUser)
+  .put('/:id/softDelete', verifyAuthorization, softDeleteUser)
+  .delete('/:id', verifyAdmin, hardDeleteUser);

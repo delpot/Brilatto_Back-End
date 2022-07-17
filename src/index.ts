@@ -4,11 +4,11 @@ console.log('********* START *********');
 import dotenv from 'dotenv-safe';
 import express from 'express';
 import mongoose from 'mongoose';
-import authRouter from './routes/auth.router';
-import usersRouter from './routes/user.router';
-import categoriesRouter from './routes/jewel-category.router';
-import modelsRouter from './routes/jewel-model.router';
-import jewelsRouter from './routes/jewel.router';
+import { authRouter } from './routes/auth.router';
+import { usersRouter } from './routes/user.router';
+import { categoriesRouter } from './routes/jewel-category.router';
+import { modelsRouter } from './routes/jewel-model.router';
+import { jewelsRouter } from './routes/jewel.router';
 
 dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;

@@ -9,12 +9,10 @@ import {
   getOneModel,
 } from '../controllers/jewel-model.controller';
 
-const router = Router();
-router.get('/', getAllModels);
-router.get('/:id', getOneModel);
-router.post('/add', verifyAdmin, createModel);
-router.put('/:id', verifyAdmin, updateModel);
-router.put('/:id/softDelete', verifyAdmin, softDeleteModel);
-router.delete('/:id/', verifyAdmin, hardDeleteModel);
-
-export default router;
+export const modelsRouter = Router()
+  .get('/', getAllModels)
+  .get('/:id', getOneModel)
+  .post('/add', verifyAdmin, createModel)
+  .put('/:id', verifyAdmin, updateModel)
+  .put('/:id/softDelete', verifyAdmin, softDeleteModel)
+  .delete('/:id/', verifyAdmin, hardDeleteModel);

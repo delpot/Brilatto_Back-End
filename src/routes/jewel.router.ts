@@ -9,12 +9,10 @@ import {
 } from 'src/controllers/jewel.controller';
 import { verifyAdmin } from '../middlewares/auth.middleware';
 
-const router = Router();
-router.get('/', getAllJewels);
-router.get('/:id', getOneJewel);
-router.post('/add', verifyAdmin, createJewel);
-router.put('/:id', verifyAdmin, updateJewel);
-router.put('/:id/softDelete', verifyAdmin, softDeleteJewel);
-router.delete('/:id/', verifyAdmin, hardDeleteJewel);
-
-export default router;
+export const jewelsRouter = Router()
+  .get('/', getAllJewels)
+  .get('/:id', getOneJewel)
+  .post('/add', verifyAdmin, createJewel)
+  .put('/:id', verifyAdmin, updateJewel)
+  .put('/:id/softDelete', verifyAdmin, softDeleteJewel)
+  .delete('/:id/', verifyAdmin, hardDeleteJewel);
