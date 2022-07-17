@@ -19,8 +19,7 @@ export async function getAllModels(req: Request, res: Response) {
 export async function getOneModel(req: Request, res: Response) {
   return getModelById(req.params.id)
     .then((model) => {
-      const { password, ...foundModel } = model.toObject();
-      return res.status(200).json(foundModel);
+      return res.status(200).json(model.toObject());
     })
     .catch((error) => res.status(500).json(error));
 }

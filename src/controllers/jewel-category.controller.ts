@@ -19,8 +19,7 @@ export async function getAllCategories(req: Request, res: Response) {
 export async function getOneCategory(req: Request, res: Response) {
   return getCategoryById(req.params.id)
     .then((category) => {
-      const { password, ...foundCategory } = category.toObject();
-      return res.status(200).json(foundCategory);
+      return res.status(200).json(category.toObject());
     })
     .catch((error) => res.status(500).json(error));
 }

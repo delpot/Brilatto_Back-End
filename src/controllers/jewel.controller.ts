@@ -19,8 +19,7 @@ export async function getAllJewels(req: Request, res: Response) {
 export async function getOneJewel(req: Request, res: Response) {
   return getJewelById(req.params.id)
     .then((jewel) => {
-      const { password, ...foundJewel } = jewel.toObject();
-      return res.status(200).json(foundJewel);
+      return res.status(200).json(jewel.toObject());
     })
     .catch((error) => res.status(500).json(error));
 }
