@@ -2,12 +2,12 @@ import { Schema, Model, model } from 'mongoose';
 import { CartSchema, ICart } from './Cart';
 import { IAddress } from './User';
 
-interface IOrder extends ICart {
+export interface IOrder extends ICart {
   shippingAddress: IAddress;
   status: string;
 }
 
-const Order: Model<IOrder> = model(
+export const Order: Model<IOrder> = model(
   'Order',
   new Schema({
     ...CartSchema.obj,
