@@ -9,6 +9,8 @@ import { usersRouter } from './routes/user.router';
 import { categoriesRouter } from './routes/jewel-category.router';
 import { modelsRouter } from './routes/jewel-model.router';
 import { jewelsRouter } from './routes/jewel.router';
+import { cartsRouter } from './routes/cart.router';
+import { ordersRouter } from './routes/order.router';
 
 dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;
@@ -25,6 +27,8 @@ app.use('/api/users', usersRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/models', modelsRouter);
 app.use('/api/jewels', jewelsRouter);
+app.use('/api/carts', cartsRouter);
+app.use('/api/orders', ordersRouter);
 
 app.listen(port, () => {
   console.log(
