@@ -15,4 +15,4 @@ export const categoriesRouter = Router()
   .post('/add', verifyAdmin, createCategory)
   .put('/:id', verifyAdmin, updateCategory)
   .put('/:id/softDelete', verifyAdmin, softDeleteCategory)
-  .delete('/:id/', verifyAdmin, hardDeleteCategory);
+  .delete('/:id', verifyAdmin, hardDeleteCategory);

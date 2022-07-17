@@ -15,4 +15,4 @@ export const modelsRouter = Router()
   .post('/add', verifyAdmin, createModel)
   .put('/:id', verifyAdmin, updateModel)
   .put('/:id/softDelete', verifyAdmin, softDeleteModel)
-  .delete('/:id/', verifyAdmin, hardDeleteModel);
+  .delete('/:id', verifyAdmin, hardDeleteModel);

@@ -10,4 +10,4 @@ export const cartsRouter = Router()
   .get('/:userId', verifyAuthorization)
   .post('/add', verifyAuthentication)
   .put('/:id', verifyAuthorization)
-  .delete('/:id/', verifyAuthorization);
+  .delete('/:id', verifyAuthorization);

@@ -15,4 +15,4 @@ export const jewelsRouter = Router()
   .post('/add', verifyAdmin, createJewel)
   .put('/:id', verifyAdmin, updateJewel)
   .put('/:id/softDelete', verifyAdmin, softDeleteJewel)
-  .delete('/:id/', verifyAdmin, hardDeleteJewel);
+  .delete('/:id', verifyAdmin, hardDeleteJewel);
