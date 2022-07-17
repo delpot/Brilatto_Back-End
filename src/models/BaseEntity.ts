@@ -1,4 +1,4 @@
-import { Schema, Model, model, Document } from 'mongoose';
+import { Schema, Document } from 'mongoose';
 
 export interface IBase extends Document {
   createdAt: Date;
@@ -20,5 +20,3 @@ export const BaseSchema = new Schema({
     default: null,
   },
 });
-
-export const BaseEntity: Model<IBase> = model('BaseEntity', BaseSchema);
