@@ -11,6 +11,7 @@ import { modelsRouter } from './routes/jewel-model.router';
 import { jewelsRouter } from './routes/jewel.router';
 import { cartsRouter } from './routes/cart.router';
 import { ordersRouter } from './routes/order.router';
+import cors from 'cors';
 
 dotenv.config();
 const { APP_LOCALHOST: hostname, APP_PORT: port, APP_DSN: dsn } = process.env;
@@ -21,6 +22,12 @@ mongoose
   .catch((err) => console.log(err));
 
 const app = express();
+
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 app.use(express.json());
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
