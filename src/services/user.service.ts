@@ -7,16 +7,18 @@ import {
   findUserByEmail,
   findUsers,
 } from '../repositories/user.repository';
-import { IUser } from '../entities/User';
+import { IAddress, IUser } from '../entities/User';
 import { UserDto } from '../dtos/user.dto';
 
 export function createUser(
   firstname: string,
   lastname: string,
   email: string,
-  password: string
+  password: string,
+  dateOfBirth: Date,
+  address: IAddress
 ) {
-  return create(firstname, lastname, email, password);
+  return create(firstname, lastname, email, password, dateOfBirth, address );
 }
 
 export async function getUsers(): Promise<IUser[]> {

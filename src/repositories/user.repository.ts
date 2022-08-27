@@ -1,13 +1,15 @@
 import { UserDto } from '../dtos/user.dto';
-import User, { IUser } from '../entities/User';
+import User, { IAddress, IUser } from '../entities/User';
 
 export function create(
   firstname: string,
   lastname: string,
   email: string,
-  password: string
+  password: string,
+  dateOfBirth: Date,
+  address: IAddress
 ) {
-  return new User({ firstname, lastname, email, password });
+  return new User({ firstname, lastname, email, password, dateOfBirth, address });
 }
 
 export async function findUsers(): Promise<IUser[]> {

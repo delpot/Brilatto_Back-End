@@ -5,5 +5,6 @@ export class UserDto {
   firstname?: string;
   email?: string;
   password?: string;
+  dateOfBirth?: Date;
   address?: IAddress;
 }

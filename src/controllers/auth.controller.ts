@@ -4,15 +4,17 @@ import { getUserByEmail, createUser } from '../services/user.service';
 import jwt from 'jsonwebtoken';
 
 export async function signup(req: Request, res: Response) {
-  const { firstname, lastname, email, passwordToConfirm, confirmedPassword } =
+  const { firstname, lastname, email, password, passwordToConfirm, dateOfBirth, address } =
     req.body;
 
   if (
     !firstname ||
     !lastname ||
     !email ||
+    !password ||
     !passwordToConfirm ||
-    !confirmedPassword
+    !dateOfBirth ||
+    !address
   ) {
     return res.send({ message: '⚠ Missing fields!' });
   }
@@ -21,15 +23,19 @@ export async function signup(req: Request, res: Response) {
     return res.send({ message: '⚠ User already exists!' });
   }
 
-  if (passwordToConfirm !== confirmedPassword) {
+  if (password !== passwordToConfirm) {
     return res.send({ message: "⚠ Passwords don't match!" });
   }
+
+  const birthday = new Date(dateOfBirth.yearOfBirth+'-'+dateOfBirth.monthOfBirth+'-'+dateOfBirth.dayOfBirth);
 
   return createUser(
     firstname,
     lastname,
     email,
-    encryptPassword(confirmedPassword)
+    encryptPassword(passwordToConfirm),
+    birthday,
+    address
   )
     .save()
     .then((createdUser) => {
