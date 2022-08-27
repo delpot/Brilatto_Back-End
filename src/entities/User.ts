@@ -18,7 +18,7 @@ export interface IUser extends IBase, Document {
   address?: IAddress;
 }
 
-const User: Model<IUser> = model(
+const User: Model<IUser> = model<IUser>(
   'User',
   new Schema({
     ...BaseSchema.obj,

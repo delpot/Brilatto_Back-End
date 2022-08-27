@@ -9,7 +9,7 @@ export interface IJewelModel extends IBase {
   jewels?: IJewel[];
 }
 
-const JewelModel: Model<IJewelModel> = model(
+const JewelModel: Model<IJewelModel> = model<IJewelModel>(
   'JewelModel',
   new Schema({
     ...BaseSchema.obj,

@@ -7,7 +7,7 @@ export interface IOrder extends ICart {
   status: string;
 }
 
-export const Order: Model<IOrder> = model(
+export const Order: Model<IOrder> = model<IOrder>(
   'Order',
   new Schema({
     ...CartSchema.obj,

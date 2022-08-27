@@ -26,6 +26,6 @@ export const CartSchema = new Schema({
   },
 });
 
-const Cart: Model<ICart> = model('Cart', CartSchema);
+const Cart: Model<ICart> = model<ICart>('Cart', CartSchema);
 
 export default Cart;

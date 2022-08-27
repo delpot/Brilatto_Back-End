@@ -8,7 +8,7 @@ export interface IJewelCategory extends IBase {
   models?: IJewelModel[];
 }
 
-const JewelCategory: Model<IJewelCategory> = model(
+const JewelCategory: Model<IJewelCategory> = model<IJewelCategory>(
   'JewelCategory',
   new Schema({
     ...BaseSchema.obj,
