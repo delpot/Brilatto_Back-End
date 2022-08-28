@@ -21,7 +21,7 @@ export async function signup(req: Request, res: Response) {
   )
     .save()
     .then((createdUser) => {
-      res.status(201).json(createdUser);
+      res.status(201).json(`User in Database: ${createdUser.email}`);
     })
     .catch((error) => res.status(500).json(error));
 }
