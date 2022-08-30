@@ -8,7 +8,7 @@ export async function signup(req: Request, res: Response) {
     req.body;
 
   if (await getUserByEmail(email)) {
-    return res.status(400).send('User already exists in Database');
+    res.status(400).send('User already exists in Database');
   }
 
   return createUser(
@@ -21,7 +21,7 @@ export async function signup(req: Request, res: Response) {
   )
     .save()
     .then((createdUser) => {
-      res.status(201).send(`User created in Database: ${createdUser.email}`);
+      return res.status(201).json(`User created in Database: ${createdUser.email}`);
     })
     .catch((error) => res.status(500).json(error));
 }
@@ -47,7 +47,7 @@ export async function login(req: Request, res: Response) {
         }
       );
       const { password, ...loggedUser } = user.toObject();
-      return res.status(200).json({ loggedUser, token });
+      res.status(200).json({ loggedUser, token });
     } else {
       res.status(400).send('Password doesn\'t match');
     }
