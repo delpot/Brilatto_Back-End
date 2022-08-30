@@ -30,24 +30,28 @@ export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.send({ message: '⚠ Missing fields!' });
+    throw new Error('Missing field');
   }
 
   const user = await getUserByEmail(email);
-  if (user && password === decryptPassword(user.password)) {
-    const token = jwt.sign(
-      {
-        id: user._id,
-        isAdmin: user.isAdmin,
-      },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '1h',
-      }
-    );
-    const { password, ...loggedUser } = user.toObject();
-    return res.status(200).json({ loggedUser, token });
+  if (user) {
+    if (password === decryptPassword(user.password)) {
+      const token = jwt.sign(
+        {
+          id: user._id,
+          isAdmin: user.isAdmin,
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '1h',
+        }
+      );
+      const { password, ...loggedUser } = user.toObject();
+      return res.status(200).json({ loggedUser, token });
+    } else {
+      throw new Error('Password doesn\'t match');
+    }
   } else {
-    return res.send({ message: '⚠ Wrong credentials!' });
+    throw new Error('User Not Found');
   }
 }
