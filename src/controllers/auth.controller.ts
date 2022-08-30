@@ -21,7 +21,7 @@ export async function signup(req: Request, res: Response) {
   )
     .save()
     .then((createdUser) => {
-      res.status(201).json(`User in Database: ${createdUser.email}`);
+      res.status(201).json(`User created in Database: ${createdUser.email}`);
     })
     .catch((error) => res.status(500).json(error));
 }
@@ -36,7 +36,7 @@ export async function login(req: Request, res: Response) {
   const user = await getUserByEmail(email);
   if (user) {
     if (password === decryptPassword(user.password)) {
-      const token = jwt.sign(
+      const token = jwt.sign(  
         {
           id: user._id,
           isAdmin: user.isAdmin,
