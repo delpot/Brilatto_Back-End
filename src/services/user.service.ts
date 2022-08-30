@@ -15,7 +15,7 @@ export function createUser(
   lastname: string,
   email: string,
   password: string,
-  dateOfBirth: string,
+  dateOfBirth: Date,
   address: IAddress
 ) {
   return create(firstname, lastname, email, password, dateOfBirth, address );

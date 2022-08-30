@@ -6,7 +6,7 @@ export function create(
   lastname: string,
   email: string,
   password: string,
-  dateOfBirth: string,
+  dateOfBirth: Date,
   address: IAddress
 ) {
   return new User({ firstname, lastname, email, password, dateOfBirth, address });
