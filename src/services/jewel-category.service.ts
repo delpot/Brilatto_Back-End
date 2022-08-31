@@ -1,39 +1,39 @@
+import categoryRepository from 'src/repositories/jewel-category.repository';
 import { JewelCategoryDto } from '../dtos/jewel-category.dto';
 import { IJewelCategory } from '../entities/JewelCategory';
-import {
-  create,
-  findCategoryByIdAndSoftDelete,
-  findCategoryByIdAndUpdate,
-  findCategoryByIdAndHardDelete,
-  findCategories,
-  findCategoryById,
-} from '../repositories/jewel-category.repository';
 
-export function createJewelCategory(name: string, image: string) {
-  return create(name, image);
+class CategoryService {
+
+  createJewelCategory(name: string, image: string) {
+    return categoryRepository.create(name, image);
+  }
+  
+  async getCategories(): Promise<IJewelCategory[]> {
+    return categoryRepository.findCategories();
+  }
+  
+  async getCategoryById(id: string): Promise<IJewelCategory> {
+    return categoryRepository.findCategoryById(id);
+  }
+  
+  async getCategoryByIdAndUpdate(
+    id: string,
+    jewelCategoryDto: JewelCategoryDto
+  ): Promise<IJewelCategory> {
+    return categoryRepository.findCategoryByIdAndUpdate(id, jewelCategoryDto);
+  }
+  
+  async getCategoryByIdAndSoftDelete(
+    id: string
+  ): Promise<IJewelCategory> {
+    return categoryRepository.findCategoryByIdAndSoftDelete(id);
+  }
+  
+  async getCategoryByIdAndHardDelete(id: string): Promise<void> {
+    return categoryRepository.findCategoryByIdAndHardDelete(id);
+  }
 }
 
-export async function getCategories(): Promise<IJewelCategory[]> {
-  return findCategories();
-}
+const categoryService = new CategoryService();
 
-export async function getCategoryById(id: string): Promise<IJewelCategory> {
-  return findCategoryById(id);
-}
-
-export async function getCategoryByIdAndUpdate(
-  id: string,
-  jewelCategoryDto: JewelCategoryDto
-): Promise<IJewelCategory> {
-  return findCategoryByIdAndUpdate(id, jewelCategoryDto);
-}
-
-export async function getCategoryByIdAndSoftDelete(
-  id: string
-): Promise<IJewelCategory> {
-  return findCategoryByIdAndSoftDelete(id);
-}
-
-export async function getCategoryByIdAndHardDelete(id: string): Promise<void> {
-  return findCategoryByIdAndHardDelete(id);
-}
+export default categoryService;

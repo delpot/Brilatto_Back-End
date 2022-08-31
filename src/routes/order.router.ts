@@ -1,22 +1,19 @@
 import { Router } from 'express';
-import {
-  createOrder,
-  getAllOrders,
-  getUserOrders,
-  softDeleteOrder,
-  updateOrder,
-  hardDeleteOrder,
-} from 'src/controllers/order.controller';
-import {
-  verifyAdmin,
-  verifyAuthentication,
-  verifyAuthorization,
-} from '../middlewares/auth.middleware';
+import orderController from 'src/controllers/order.controller';
+import authMiddleware from 'src/middlewares/auth.middleware';
 
-export const ordersRouter = Router()
-  .get('/', verifyAdmin, getAllOrders)
-  .get('/:userId', verifyAuthorization, getUserOrders)
-  .post('/add', verifyAuthentication, createOrder)
-  .put('/:id', verifyAdmin, updateOrder)
-  .put('/:id/softDelete', verifyAdmin, softDeleteOrder)
-  .delete('/:id', verifyAdmin, hardDeleteOrder);
+class OrderRouter {
+
+  routes = Router()
+  .get('/', authMiddleware.verifyAdmin, orderController.getAllOrders)
+  .get('/:userId', authMiddleware.verifyAuthorization, orderController.getUserOrders)
+  .post('/add', authMiddleware.verifyAuthentication, orderController.createOrder)
+  .put('/:id', authMiddleware.verifyAdmin, orderController.updateOrder)
+  .put('/:id/softDelete', authMiddleware.verifyAdmin, orderController.softDeleteOrder)
+  .delete('/:id', authMiddleware.verifyAdmin, orderController.hardDeleteOrder);
+
+}
+
+const orderRouter = new OrderRouter();
+
+export default orderRouter;

@@ -1,43 +1,43 @@
-import {
-  create,
-  findModelById,
-  findModelByIdAndHardDelete,
-  findModelByIdAndSoftDelete,
-  findModelByIdAndUpdate,
-  findModels,
-} from '../repositories/jewel-model.repository';
 import { IJewelModel } from '../entities/JewelModel';
 import { JewelModelDto } from '../dtos/jewel-model.dto';
+import modelRepository from 'src/repositories/jewel-model.repository';
 
-export function createJewelModel(
-  categoryId: string,
-  name: string,
-  description?: string
-) {
-  return create(categoryId, name, description);
+class ModelService {
+
+  createJewelModel(
+    categoryId: string,
+    name: string,
+    description?: string
+  ) {
+    return modelRepository.create(categoryId, name, description);
+  }
+  
+  async getModels(): Promise<IJewelModel[]> {
+    return  modelRepository.findModels();
+  }
+  
+  async getModelById(id: string): Promise<IJewelModel> {
+    return  modelRepository.findModelById(id);
+  }
+  
+  async getModelByIdAndUpdate(
+    id: string,
+    jewelModelDto: JewelModelDto
+  ): Promise<IJewelModel> {
+    return  modelRepository.findModelByIdAndUpdate(id, jewelModelDto);
+  }
+  
+  async getModelByIdAndSoftDelete(
+    id: string
+  ): Promise<IJewelModel> {
+    return  modelRepository.findModelByIdAndSoftDelete(id);
+  }
+  
+  async getModelByIdAndHardDelete(id: string): Promise<void> {
+    return  modelRepository.findModelByIdAndHardDelete(id);
+  }
 }
 
-export async function getModels(): Promise<IJewelModel[]> {
-  return findModels();
-}
+const modelService = new ModelService();
 
-export async function getModelById(id: string): Promise<IJewelModel> {
-  return findModelById(id);
-}
-
-export async function getModelByIdAndUpdate(
-  id: string,
-  jewelModelDto: JewelModelDto
-): Promise<IJewelModel> {
-  return findModelByIdAndUpdate(id, jewelModelDto);
-}
-
-export async function getModelByIdAndSoftDelete(
-  id: string
-): Promise<IJewelModel> {
-  return findModelByIdAndSoftDelete(id);
-}
-
-export async function getModelByIdAndHardDelete(id: string): Promise<void> {
-  return findModelByIdAndHardDelete(id);
-}
+export default modelService;

@@ -1,20 +1,17 @@
 import { Router } from 'express';
-import {
-  getAllCarts,
-  getUserCart,
-  createCart,
-  updateCart,
-  hardDeleteCart,
-} from 'src/controllers/cart.controller';
-import {
-  verifyAdmin,
-  verifyAuthentication,
-  verifyAuthorization,
-} from '../middlewares/auth.middleware';
+import cartController from 'src/controllers/cart.controller';
+import authMiddleware from 'src/middlewares/auth.middleware';
 
-export const cartsRouter = Router()
-  .get('/', verifyAdmin, getAllCarts)
-  .get('/:userId', verifyAuthorization, getUserCart)
-  .post('/add', verifyAuthentication, createCart)
-  .put('/:id', verifyAuthorization, updateCart)
-  .delete('/:id', verifyAuthorization, hardDeleteCart);
+class CartRouter {
+
+  routes = Router()
+  .get('/', authMiddleware.verifyAdmin, cartController.getAllCarts)
+  .get('/:userId', authMiddleware.verifyAuthorization, cartController.getUserCart)
+  .post('/add', authMiddleware.verifyAuthentication, cartController.createCart)
+  .put('/:id', authMiddleware.verifyAuthorization, cartController.updateCart)
+  .delete('/:id', authMiddleware.verifyAuthorization, cartController.hardDeleteCart);
+}
+
+const cartRouter = new CartRouter();
+
+export default cartRouter;

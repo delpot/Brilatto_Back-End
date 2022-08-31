@@ -1,18 +1,19 @@
 import { Router } from 'express';
-import { verifyAdmin } from '../middlewares/auth.middleware';
-import {
-  createCategory,
-  updateCategory,
-  softDeleteCategory,
-  hardDeleteCategory,
-  getAllCategories,
-  getOneCategory,
-} from '../controllers/jewel-category.controller';
+import categoryController from 'src/controllers/jewel-category.controller';
+import authMiddleware from 'src/middlewares/auth.middleware';
 
-export const categoriesRouter = Router()
-  .get('/', getAllCategories)
-  .get('/:id', getOneCategory)
-  .post('/add', verifyAdmin, createCategory)
-  .put('/:id', verifyAdmin, updateCategory)
-  .put('/:id/softDelete', verifyAdmin, softDeleteCategory)
-  .delete('/:id', verifyAdmin, hardDeleteCategory);
+class CategoryRouter {
+
+  routes = Router()
+  .get('/', categoryController.getAllCategories)
+  .get('/:id', categoryController.getOneCategory)
+  .post('/add', authMiddleware.verifyAdmin, categoryController.createCategory)
+  .put('/:id', authMiddleware.verifyAdmin, categoryController.updateCategory)
+  .put('/:id/softDelete', authMiddleware.verifyAdmin, categoryController.softDeleteCategory)
+  .delete('/:id', authMiddleware.verifyAdmin, categoryController.hardDeleteCategory);
+
+}
+
+const categoryRouter = new CategoryRouter();
+
+export default categoryRouter;

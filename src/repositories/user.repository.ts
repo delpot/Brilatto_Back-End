@@ -1,55 +1,63 @@
 import { UserDto } from '../dtos/user.dto';
 import User, { IUser } from '../entities/User';
 
-export function create(
-  firstname: string,
-  lastname: string,
-  email: string,
-  password: string
-) {
-  return new User({ firstname, lastname, email, password });
-}
+class UserRepository {
 
-export async function findUsers(): Promise<IUser[]> {
-  return User.find({ deletedAt: null }).sort({ _id: -1 });
-}
-
-export async function findUserById(id: string): Promise<IUser> {
-  return User.findById(id);
-}
-
-export async function findUserByEmail(email: string): Promise<IUser> {
-  return User.findOne({ email });
-}
-
-export async function findUserByIdAndUpdate(
-  id: string,
-  userDto: UserDto
-): Promise<IUser> {
-  return User.findByIdAndUpdate(
-    id,
-    {
-      $set: {
-        ...userDto,
-        updatedAt: new Date(),
+  create(
+    firstname: string,
+    lastname: string,
+    email: string,
+    password: string
+  ) {
+    return new User({ firstname, lastname, email, password });
+  }
+  
+  async findUsers(): Promise<IUser[]> {
+    return User.find({ deletedAt: null }).sort({ _id: -1 });
+  }
+  
+  async findUserById(id: string): Promise<IUser> {
+    return User.findById(id);
+  }
+  
+  async findUserByEmail(email: string): Promise<IUser> {
+    return User.findOne({ email });
+  }
+  
+  async findUserByIdAndUpdate(
+    id: string,
+    userDto: UserDto
+  ): Promise<IUser> {
+    return User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          ...userDto,
+          updatedAt: new Date(),
+        },
       },
-    },
-    { new: true }
-  );
-}
-
-export async function findUserByIdAndSoftDelete(id: string): Promise<IUser> {
-  return User.findByIdAndUpdate(
-    id,
-    {
-      $set: {
-        deletedAt: new Date(),
+      { new: true }
+    );
+  }
+  
+  async findUserByIdAndSoftDelete(id: string): Promise<IUser> {
+    return User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          deletedAt: new Date(),
+        },
       },
-    },
-    { new: true }
-  );
+      { new: true }
+    );
+  }
+  
+  async findUserByIdAndHardDelete(id: string): Promise<void> {
+    return User.findByIdAndDelete(id);
+  }
+  
 }
 
-export async function findUserByIdAndHardDelete(id: string): Promise<void> {
-  return User.findByIdAndDelete(id);
-}
+const userRepository = new UserRepository();
+
+export default userRepository;

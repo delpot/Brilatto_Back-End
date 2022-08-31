@@ -1,18 +1,18 @@
 import { Router } from 'express';
-import { verifyAdmin } from '../middlewares/auth.middleware';
-import {
-  createModel,
-  updateModel,
-  softDeleteModel,
-  hardDeleteModel,
-  getAllModels,
-  getOneModel,
-} from '../controllers/jewel-model.controller';
+import modelController from 'src/controllers/jewel-model.controller';
+import authMiddleware from 'src/middlewares/auth.middleware';
 
-export const modelsRouter = Router()
-  .get('/', getAllModels)
-  .get('/:id', getOneModel)
-  .post('/add', verifyAdmin, createModel)
-  .put('/:id', verifyAdmin, updateModel)
-  .put('/:id/softDelete', verifyAdmin, softDeleteModel)
-  .delete('/:id', verifyAdmin, hardDeleteModel);
+class ModelRouter {
+
+  routes = Router()
+  .get('/', modelController.getAllModels)
+  .get('/:id', modelController.getOneModel)
+  .post('/add', authMiddleware.verifyAdmin, modelController.createModel)
+  .put('/:id', authMiddleware.verifyAdmin, modelController.updateModel)
+  .put('/:id/softDelete', authMiddleware.verifyAdmin, modelController.softDeleteModel)
+  .delete('/:id', authMiddleware.verifyAdmin, modelController.hardDeleteModel);
+}
+
+const modelRouter = new ModelRouter();
+
+export default modelRouter;

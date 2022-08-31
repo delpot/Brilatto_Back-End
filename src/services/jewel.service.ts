@@ -1,43 +1,44 @@
 import { IJewel } from 'src/entities/Jewel';
-import {
-  create,
-  findJewelById,
-  findJewelByIdAndHardDelete,
-  findJewelByIdAndSoftDelete,
-  findJewelByIdAndUpdate,
-  findJewels,
-} from 'src/repositories/jewel.repository';
 import { JewelDto } from 'src/dtos/jewel.dto';
+import jewelRepository from 'src/repositories/jewel.repository';
 
-export function createJewelEntity(
-  modelId: string,
-  color: string,
-  photo: string,
-  quantityInStock: number,
-  price: number
-) {
-  return create(modelId, color, photo, quantityInStock, price);
+class JewelService {
+
+  createJewelEntity(
+    modelId: string,
+    color: string,
+    photo: string,
+    quantityInStock: number,
+    price: number
+  ) {
+    return jewelRepository.create(modelId, color, photo, quantityInStock, price);
+  }
+  
+  async getJewels(): Promise<IJewel[]> {
+    return jewelRepository.findJewels();
+  }
+  
+  async getJewelById(id: string): Promise<IJewel> {
+    return jewelRepository.findJewelById(id);
+  }
+  
+  async getJewelByIdAndUpdate(
+    id: string,
+    jewelDto: JewelDto
+  ): Promise<IJewel> {
+    return jewelRepository.findJewelByIdAndUpdate(id, jewelDto);
+  }
+  
+  async getJewelByIdAndSoftDelete(id: string): Promise<IJewel> {
+    return jewelRepository.findJewelByIdAndSoftDelete(id);
+  }
+  
+  async getJewelByIdAndHardDelete(id: string): Promise<void> {
+    return jewelRepository.findJewelByIdAndHardDelete(id);
+  }
+  
 }
 
-export async function getJewels(): Promise<IJewel[]> {
-  return findJewels();
-}
+const jewelService = new JewelService();
 
-export async function getJewelById(id: string): Promise<IJewel> {
-  return findJewelById(id);
-}
-
-export async function getJewelByIdAndUpdate(
-  id: string,
-  jewelDto: JewelDto
-): Promise<IJewel> {
-  return findJewelByIdAndUpdate(id, jewelDto);
-}
-
-export async function getJewelByIdAndSoftDelete(id: string): Promise<IJewel> {
-  return findJewelByIdAndSoftDelete(id);
-}
-
-export async function getJewelByIdAndHardDelete(id: string): Promise<void> {
-  return findJewelByIdAndHardDelete(id);
-}
+export default jewelService;
