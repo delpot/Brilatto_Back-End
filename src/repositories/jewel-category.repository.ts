@@ -1,8 +1,8 @@
 import { JewelCategoryDto } from '../dtos/jewel-category.dto';
 import JewelCategory, { IJewelCategory } from '../entities/JewelCategory';
 
-export function create(name: string) {
-  return new JewelCategory({ name });
+export function create(name: string, image: string) {
+  return new JewelCategory({ name, image });
 }
 
 export async function findCategories(): Promise<IJewelCategory[]> {

@@ -9,8 +9,8 @@ import {
   findCategoryById,
 } from '../repositories/jewel-category.repository';
 
-export function createJewelCategory(name: string) {
-  return create(name);
+export function createJewelCategory(name: string, image: string) {
+  return create(name, image);
 }
 
 export async function getCategories(): Promise<IJewelCategory[]> {

@@ -4,6 +4,7 @@ import { IJewelModel } from './JewelModel';
 
 export interface IJewelCategory extends IBase {
   name: string;
+  image: string;
   description?: string;
   models?: IJewelModel[];
 }
@@ -13,6 +14,10 @@ const JewelCategory: Model<IJewelCategory> = model<IJewelCategory>(
   new Schema({
     ...BaseSchema.obj,
     name: {
+      type: String,
+      required: true,
+    },
+    image: {
       type: String,
       required: true,
     },

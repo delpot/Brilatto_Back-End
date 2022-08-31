@@ -25,7 +25,7 @@ export async function getOneCategory(req: Request, res: Response) {
 }
 
 export async function createCategory(req: Request, res: Response) {
-  return createJewelCategory(req.body.name)
+  return createJewelCategory(req.body.name, req.body.image)
     .save()
     .then((createdCategory) => {
       res.status(201).json(createdCategory);
