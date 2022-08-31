@@ -55,7 +55,3 @@ export async function login(req: Request, res: Response) {
     res.status(400).send('User Not Found in Database');
   }
 }
-
-export async function logout(req: Request, res: Response) {
-
-}
