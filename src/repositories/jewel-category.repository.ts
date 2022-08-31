@@ -6,7 +6,7 @@ export function create(name: string, image: string) {
 }
 
 export async function findCategories(): Promise<IJewelCategory[]> {
-  return JewelCategory.find({ deletedAt: null }).sort({ _id: -1 });
+  return JewelCategory.find({ deletedAt: null });
 }
 
 export async function findCategoryById(id: string): Promise<IJewelCategory> {
