@@ -6,7 +6,7 @@ class ModelRouter {
 
   routes = Router()
   .get('/', modelController.getAllModels)
-  .get('/category/:categoryName', modelController.getAllModelsByCategoryName)
+  .get('/category/:categoryId', modelController.getAllModelsByCategoryId)
   .get('/:id', modelController.getOneModel)
   .post('/add', authMiddleware.verifyAdmin, modelController.createModel)
   .put('/:id', authMiddleware.verifyAdmin, modelController.updateModel)

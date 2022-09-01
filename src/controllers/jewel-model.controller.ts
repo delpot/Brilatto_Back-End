@@ -12,8 +12,8 @@ class ModelController {
       .catch((error) => res.status(500).json(error));
   }
 
-  public async getAllModelsByCategoryName(req: Request, res: Response) {
-    return modelService.getModelsByCategoryName(req.params.categoryName)
+  public async getAllModelsByCategoryId(req: Request, res: Response) {
+    return modelService.getModelsByCategoryId(req.params.categoryId)
       .then((models) => {
         return res.status(200).json(models);
       })
@@ -31,6 +31,7 @@ class ModelController {
   async createModel(req: Request, res: Response) {
     const { categoryId, name, description } = req.body;
     const category = await categoryService.getCategoryById(categoryId);
+    console.log(category);
     const createdModel = modelService.createJewelModel(categoryId, name, description);
     await createdModel
       .save()
@@ -39,6 +40,9 @@ class ModelController {
       })
       .catch((error) => res.status(500).json(error));
     category.models.push(createdModel);
+    await category.save();
+    console.log(createdModel);
+    console.log(category)
     return createdModel;
   }
   

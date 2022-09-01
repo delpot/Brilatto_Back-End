@@ -16,8 +16,8 @@ class ModelService {
     return  modelRepository.findModels();
   }
 
-  async getModelsByCategoryName(categoryName: string): Promise<IJewelModel[]> {
-    return  modelRepository.findModelsByCategoryName(categoryName);
+  async getModelsByCategoryId(categoryId: string): Promise<IJewelModel[]> {
+    return  modelRepository.findModelsByCategoryId(categoryId);
   }
   
   async getModelById(id: string): Promise<IJewelModel> {

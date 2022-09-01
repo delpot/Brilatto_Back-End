@@ -3,7 +3,7 @@ import { BaseSchema, IBase } from './BaseEntity';
 import { IJewel } from './Jewel';
 
 export interface IJewelModel extends IBase {
-  categoryName: string;
+  categoryId: string;
   name: string;
   description?: string;
   jewels?: IJewel[];
@@ -13,7 +13,7 @@ const JewelModel: Model<IJewelModel> = model<IJewelModel>(
   'JewelModel',
   new Schema({
     ...BaseSchema.obj,
-    categoryName: {
+    categoryId: {
       type: String,
       required: true,
     },
