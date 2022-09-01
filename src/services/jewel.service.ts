@@ -17,6 +17,10 @@ class JewelService {
   async getJewels(): Promise<IJewel[]> {
     return jewelRepository.findJewels();
   }
+
+  async getJewelsByModelId(modelId: string): Promise<IJewel[]> {
+    return jewelRepository.findJewelsByModelId(modelId);
+  }
   
   async getJewelById(id: string): Promise<IJewel> {
     return jewelRepository.findJewelById(id);

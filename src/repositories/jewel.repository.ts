@@ -16,6 +16,10 @@ class JewelRepository {
   async findJewels(): Promise<IJewel[]> {
     return Jewel.find({ deletedAt: null }).sort({ _id: -1 });
   }
+
+  async findJewelsByModelId(modelId: string): Promise<IJewel[]> {
+    return Jewel.find({ deletedAt: null, modelId }).sort({ _id: -1 });
+  }
   
   async findJewelById(id: string): Promise<IJewel> {
     return Jewel.findById(id);

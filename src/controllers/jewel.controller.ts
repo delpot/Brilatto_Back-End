@@ -11,6 +11,14 @@ class JewelController {
       })
       .catch((error) => res.status(500).json(error));
   }
+
+  public async getAllJewelsByModelId(req: Request, res: Response) {
+    return jewelService.getJewelsByModelId(req.params.modelId)
+      .then((jewels) => {
+        return res.status(200).json(jewels);
+      })
+      .catch((error) => res.status(500).json(error));
+  }
   
   async getOneJewel(req: Request, res: Response) {
     return jewelService.getJewelById(req.params.id)
@@ -31,6 +39,7 @@ class JewelController {
       })
       .catch((error) => res.status(500).json(error));
     model.jewels.push(createdJewel);
+    await model.save();
     return createdJewel;
   }
   

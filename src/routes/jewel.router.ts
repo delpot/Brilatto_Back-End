@@ -5,6 +5,7 @@ import authMiddleware from 'src/middlewares/auth.middleware';
 class JewelRouter {
   routes = Router()
   .get('/', jewelController.getAllJewels)
+  .get('/model/:modelId', jewelController.getAllJewelsByModelId)
   .get('/:id', jewelController.getOneJewel)
   .post('/add', authMiddleware.verifyAdmin, jewelController.createJewel)
   .put('/:id', authMiddleware.verifyAdmin, jewelController.updateJewel)
