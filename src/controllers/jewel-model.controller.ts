@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import categoryService from 'src/services/jewel-category.service';
 import  modelService from 'src/services/jewel-model.service';
 
 class ModelController {
@@ -29,12 +30,16 @@ class ModelController {
   
   async createModel(req: Request, res: Response) {
     const { categoryId, name, description } = req.body;
-    return modelService.createJewelModel(categoryId, name, description)
+    const category = await categoryService.getCategoryById(categoryId);
+    const createdModel = modelService.createJewelModel(categoryId, name, description);
+    await createdModel
       .save()
       .then((createdModel) => {
         res.status(201).json(createdModel);
       })
       .catch((error) => res.status(500).json(error));
+    category.models.push(createdModel);
+    return createdModel;
   }
   
   async updateModel(req: Request, res: Response) {

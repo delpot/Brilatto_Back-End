@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import modelService from 'src/services/jewel-model.service';
 import jewelService from 'src/services/jewel.service';
 
 class JewelController {
@@ -21,12 +22,16 @@ class JewelController {
   
   async createJewel(req: Request, res: Response) {
     const { modelId, color, photo, quantityInStock, price } = req.body;
-    return jewelService.createJewelEntity(modelId, color, photo, quantityInStock, price)
+    const model = await modelService.getModelById(modelId);
+    const createdJewel = jewelService.createJewelEntity(modelId, color, photo, quantityInStock, price);
+    await createdJewel
       .save()
       .then((createdJewel) => {
         res.status(201).json(createdJewel);
       })
       .catch((error) => res.status(500).json(error));
+    model.jewels.push(createdJewel);
+    return createdJewel;
   }
   
   async updateJewel(req: Request, res: Response) {
