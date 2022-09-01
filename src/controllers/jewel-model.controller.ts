@@ -10,6 +10,14 @@ class ModelController {
       })
       .catch((error) => res.status(500).json(error));
   }
+
+  public async getAllModelsByCategoryName(req: Request, res: Response) {
+    return modelService.getModelsByCategoryName(req.params.categoryName)
+      .then((models) => {
+        return res.status(200).json(models);
+      })
+      .catch((error) => res.status(500).json(error));
+  }
   
   async getOneModel(req: Request, res: Response) {
     return modelService.getModelById(req.params.id)
