@@ -40,8 +40,6 @@ class ModelController {
       .catch((error) => res.status(500).json(error));
     category.models.push(createdModel);
     await category.save();
-    console.log(createdModel);
-    console.log(category)
     return createdModel;
   }
   
