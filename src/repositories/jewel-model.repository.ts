@@ -3,8 +3,8 @@ import JewelModel, { IJewelModel } from '../entities/JewelModel';
 
 class ModelRepository {
 
-  create(categoryId: string, name: string, description?: string) {
-    return new JewelModel({ categoryId, name, description });
+  create(categoryId: string, name: string, photo: string, description?: string) {
+    return new JewelModel({ categoryId, name, photo, description });
   }
   
   async findModels(): Promise<IJewelModel[]> {

@@ -1,4 +1,5 @@
 export class JewelCategoryDto {
-  name: string;
+  name?: string;
+  photo?: string;
   description?: string;
 }

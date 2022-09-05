@@ -20,7 +20,7 @@ class CategoryController {
   }
   
   async createCategory(req: Request, res: Response) {
-    return categoryService.createJewelCategory(req.body.name, req.body.image)
+    return categoryService.createJewelCategory(req.body.name, req.body.photo, req.body.description)
       .save()
       .then((createdCategory) => {
         res.status(201).json(createdCategory);

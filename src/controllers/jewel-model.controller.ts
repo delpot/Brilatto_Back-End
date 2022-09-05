@@ -29,10 +29,9 @@ class ModelController {
   }
   
   async createModel(req: Request, res: Response) {
-    const { categoryId, name, description } = req.body;
+    const { categoryId, name, photo, description } = req.body;
     const category = await categoryService.getCategoryById(categoryId);
-    console.log(category);
-    const createdModel = modelService.createJewelModel(categoryId, name, description);
+    const createdModel = modelService.createJewelModel(categoryId, name, photo, description);
     await createdModel
       .save()
       .then((createdModel) => {

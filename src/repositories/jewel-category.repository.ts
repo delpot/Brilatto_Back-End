@@ -3,8 +3,8 @@ import JewelCategory, { IJewelCategory } from '../entities/JewelCategory';
 
 class CategoryRepository {
 
-  create(name: string, image: string) {
-    return new JewelCategory({ name, image });
+  create(name: string, photo: string, description: string) {
+    return new JewelCategory({ name, photo, description });
   }
   
   async findCategories(): Promise<IJewelCategory[]> {

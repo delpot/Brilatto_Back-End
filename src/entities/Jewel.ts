@@ -5,6 +5,7 @@ export interface IJewel extends IBase {
   modelId: string;
   color: string;
   photo: string;
+  quantity: number;
   quantityInStock: number;
   price: number;
 }
@@ -24,6 +25,10 @@ const Jewel: Model<IJewel> = model<IJewel>(
     photo: {
       type: String,
       required: true,
+    },
+    quantity: {
+      type: Number,
+      default: 0,
     },
     quantityInStock: {
       type: Number,

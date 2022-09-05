@@ -4,8 +4,8 @@ import { IJewelCategory } from '../entities/JewelCategory';
 
 class CategoryService {
 
-  createJewelCategory(name: string, image: string) {
-    return categoryRepository.create(name, image);
+  createJewelCategory(name: string, photo: string, description: string) {
+    return categoryRepository.create(name, photo, description);
   }
   
   async getCategories(): Promise<IJewelCategory[]> {

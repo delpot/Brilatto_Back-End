@@ -7,9 +7,10 @@ class ModelService {
   createJewelModel(
     categoryId: string,
     name: string,
+    photo: string,
     description?: string
   ) {
-    return modelRepository.create(categoryId, name, description);
+    return modelRepository.create(categoryId, name, photo, description);
   }
   
   async getModels(): Promise<IJewelModel[]> {

@@ -5,6 +5,7 @@ import { IJewel } from './Jewel';
 export interface IJewelModel extends IBase {
   categoryId: string;
   name: string;
+  photo: string;
   description?: string;
   jewels?: IJewel[];
 }
@@ -18,6 +19,10 @@ const JewelModel: Model<IJewelModel> = model<IJewelModel>(
       required: true,
     },
     name: {
+      type: String,
+      required: true,
+    },
+    photo: {
       type: String,
       required: true,
     },
