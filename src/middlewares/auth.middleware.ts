@@ -1,9 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-class AuthMiddleware {
-
-  verifyAuthentication(
+export function verifyAuthentication(
     req: Request,
     res: Response,
     next: NextFunction
@@ -23,12 +21,12 @@ class AuthMiddleware {
     }
   }
   
-  verifyAuthorization(
+export function verifyAuthorization(
     req: Request,
     res: Response,
     next: NextFunction
   ) {
-    this.verifyAuthentication(req, res, () => {
+    verifyAuthentication(req, res, () => {
       if (req.params.id === res.locals.user.id || res.locals.user.isAdmin) {
         next();
       } else {
@@ -37,8 +35,8 @@ class AuthMiddleware {
     });
   }
   
-  verifyAdmin(req: Request, res: Response, next: NextFunction) {
-    this.verifyAuthentication(req, res, () => {
+export function verifyAdmin(req: Request, res: Response, next: NextFunction) {
+    verifyAuthentication(req, res, () => {
       if (res.locals.user.isAdmin) {
         next();
       } else {
@@ -46,9 +44,3 @@ class AuthMiddleware {
       }
     });
   }
-  
-}
-
-const authMiddleware = new AuthMiddleware();
-
-export default authMiddleware;

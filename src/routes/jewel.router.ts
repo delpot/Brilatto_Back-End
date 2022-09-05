@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import jewelController from 'src/controllers/jewel.controller';
-import authMiddleware from 'src/middlewares/auth.middleware';
+import {verifyAdmin} from 'src/middlewares/auth.middleware';
 
 class JewelRouter {
   routes = Router()
   .get('/', jewelController.getAllJewels)
   .get('/model/:modelId', jewelController.getAllJewelsByModelId)
   .get('/:id', jewelController.getOneJewel)
-  .post('/add', authMiddleware.verifyAdmin, jewelController.createJewel)
-  .put('/:id', authMiddleware.verifyAdmin, jewelController.updateJewel)
-  .put('/:id/softDelete', authMiddleware.verifyAdmin, jewelController.softDeleteJewel)
-  .delete('/:id', authMiddleware.verifyAdmin, jewelController.hardDeleteJewel);
+  .post('/add', verifyAdmin, jewelController.createJewel)
+  .put('/:id', verifyAdmin, jewelController.updateJewel)
+  .put('/:id/softDelete', verifyAdmin, jewelController.softDeleteJewel)
+  .delete('/:id', verifyAdmin, jewelController.hardDeleteJewel);
 }
 
 const jewelRouter = new JewelRouter();
