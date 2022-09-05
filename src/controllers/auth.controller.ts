@@ -41,14 +41,14 @@ class AuthController {
   }
   
   async login(req: Request, res: Response) {
-    const { email, pwd } = req.body;
+    const { email, password } = req.body;
   
-    if (!email || !pwd) {
+    if (!email || !password) {
       return res.send({ message: '⚠ Missing fields!' });
     }
   
     const user = await userService.getUserByEmail(email);
-    if (user && pwd === decryptPassword(user.password)) {
+    if (user && password === decryptPassword(user.password)) {
       const token = jwt.sign(
         {
           id: user._id,
