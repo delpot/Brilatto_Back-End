@@ -6,7 +6,7 @@ class UserRouter {
 
   routes = Router()
   .get('/', verifyAdmin, userController.getAllUsers)
-  .get('/:id', verifyAdmin, userController.getOneUser)
+  .get('/:id', verifyAuthorization, userController.getOneUser)
   .put('/:id', verifyAuthorization, userController.updateUser)
   .put('/:id/softDelete', verifyAuthorization, userController.softDeleteUser)
   .delete('/:id', verifyAdmin, userController.hardDeleteUser);

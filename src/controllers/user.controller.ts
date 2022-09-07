@@ -22,11 +22,30 @@ class UserController {
   }
   
   async updateUser(req: Request, res: Response) {
-    if (req.body.password) {
-      encryptPassword(req.body.password);
+    // if (req.body.password) {
+    //   encryptPassword(req.body.password);
+    // }  
+
+    const {
+      firstname, 
+      lastname, 
+      email, 
+      dateOfBirth, 
+      addressLine1, 
+      addressLine2, 
+      city, 
+      postalCode, 
+      country 
+    } = req.body;
+
+    const address = {
+      addressLine1, 
+      addressLine2, 
+      city, 
+      postalCode, 
+      country 
     }
-  
-    return userService.getUserByIdAndUpdate(req.params.id, req.body)
+    return userService.getUserByIdAndUpdate(req.params.id, { firstname, lastname, email, dateOfBirth, address})
       .then((updatedUser) => {
         res.status(201).json(updatedUser);
       })

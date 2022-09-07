@@ -1,9 +1,9 @@
-import { IAddress } from '../entities/User';
+import { IAddress } from "src/entities/User";
 
 export class UserDto {
   lastname?: string;
   firstname?: string;
   email?: string;
-  password?: string;
-  address?: IAddress;
+  dateOfBirth?: Date;
+  address?: IAddress
 }
