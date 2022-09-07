@@ -30,6 +30,13 @@ class ModelController {
   
   async createModel(req: Request, res: Response) {
     const { categoryId, name, photo, description } = req.body;
+    if (
+      !name ||
+      !photo ||
+      !description
+    ) {
+      return res.status(400).send({ message: '⚠ Missing fields!' });
+    }
     const category = await categoryService.getCategoryById(categoryId);
     const createdModel = modelService.createJewelModel(categoryId, name, photo, description);
     await createdModel

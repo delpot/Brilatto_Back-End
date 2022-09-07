@@ -20,7 +20,15 @@ class CategoryController {
   }
   
   async createCategory(req: Request, res: Response) {
-    return categoryService.createJewelCategory(req.body.name, req.body.photo, req.body.description)
+    const { name, photo, description } = req.body;
+    if (
+      !name ||
+      !photo ||
+      !description
+    ) {
+      return res.status(400).send({ message: '⚠ Missing fields!' });
+    }
+    return categoryService.createJewelCategory(name, photo, description)
       .save()
       .then((createdCategory) => {
         res.status(201).json(createdCategory);

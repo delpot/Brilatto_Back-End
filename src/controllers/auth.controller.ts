@@ -6,15 +6,19 @@ import jwt from 'jsonwebtoken';
 class AuthController {
 
   async signup(req: Request, res: Response) {
-    const { firstname, lastname, email, passwordToConfirm, confirmedPassword } =
+    const { firstname, lastname, email, password, confirmPassword, dateOfBirth, addressLine1, addressLine2, city, postalCode, country } =
       req.body;
   
     if (
       !firstname ||
       !lastname ||
       !email ||
-      !passwordToConfirm ||
-      !confirmedPassword
+      !password ||
+      !confirmPassword ||
+      !addressLine1 ||
+      !city ||
+      !postalCode ||
+      !country
     ) {
       return res.status(400).send({ message: '⚠ Missing fields!' });
     }
@@ -23,21 +27,33 @@ class AuthController {
       return res.status(400).send({ message: '⚠ User already exists!' });
     }
   
-    if (passwordToConfirm !== confirmedPassword) {
+    if (password !== confirmPassword) {
       return res.status(400).send({ message: "⚠ Passwords don't match!" });
+    }
+
+    const address = {
+      addressLine1,
+      addressLine2,
+      city,
+      postalCode,
+      country
     }
   
     return userService.createUser(
       firstname,
       lastname,
       email,
-      encryptPassword(confirmedPassword)
+      encryptPassword(password),
+      dateOfBirth,
+      address
     )
       .save()
       .then((createdUser) => {
         res.status(201).json(createdUser);
       })
-      .catch((error) => res.status(500).json(error));
+      .catch((error) => {
+        res.status(500).json(error)
+      });
   }
   
   async login(req: Request, res: Response) {

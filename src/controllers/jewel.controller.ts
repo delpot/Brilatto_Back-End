@@ -30,6 +30,16 @@ class JewelController {
   
   async createJewel(req: Request, res: Response) {
     const { modelId, name, photo1, photo2, quantityInStock, price, description } = req.body;
+    if (
+      !name ||
+      !photo1 ||
+      !photo2 ||
+      !quantityInStock ||
+      !price ||
+      !description
+    ) {
+      return res.status(400).send({ message: '⚠ Missing fields!' });
+    }
     const model = await modelService.getModelById(modelId);
     const createdJewel = jewelService.createJewelEntity(modelId, name, photo1, photo2, quantityInStock, price, description);
     await createdJewel

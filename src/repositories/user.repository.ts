@@ -1,5 +1,5 @@
 import { UserDto } from '../dtos/user.dto';
-import User, { IUser } from '../entities/User';
+import User, { IAddress, IUser } from '../entities/User';
 
 class UserRepository {
 
@@ -7,9 +7,11 @@ class UserRepository {
     firstname: string,
     lastname: string,
     email: string,
-    password: string
+    password: string,
+    dateOfBirth: Date,
+    address: IAddress
   ) {
-    return new User({ firstname, lastname, email, password });
+    return new User({ firstname, lastname, email, password, dateOfBirth, address });
   }
   
   async findUsers(): Promise<IUser[]> {

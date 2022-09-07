@@ -1,4 +1,4 @@
-import { IUser } from '../entities/User';
+import { IAddress, IUser } from '../entities/User';
 import { UserDto } from '../dtos/user.dto';
 import userRepository from 'src/repositories/user.repository';
 
@@ -8,9 +8,11 @@ class UserService {
     firstname: string,
     lastname: string,
     email: string,
-    password: string
+    password: string,
+    dateOfBirth: Date,
+    address: IAddress
   ) {
-    return userRepository.create(firstname, lastname, email, password);
+    return userRepository.create(firstname, lastname, email, password, dateOfBirth, address);
   }
   
   async getUsers(): Promise<IUser[]> {
