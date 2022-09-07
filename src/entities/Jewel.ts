@@ -3,11 +3,12 @@ import { BaseSchema, IBase } from './BaseEntity';
 
 export interface IJewel extends IBase {
   modelId: string;
-  color: string;
-  photo: string;
-  quantity: number;
+  name: string;
+  photo1: string;
+  photo2: string;
   quantityInStock: number;
   price: number;
+  description?: string
 }
 
 const Jewel: Model<IJewel> = model<IJewel>(
@@ -18,17 +19,17 @@ const Jewel: Model<IJewel> = model<IJewel>(
       type: String,
       required: true,
     },
-    color: {
+    name: {
       type: String,
       required: true,
     },
-    photo: {
+    photo1: {
       type: String,
       required: true,
     },
-    quantity: {
-      type: Number,
-      default: 0,
+    photo2: {
+      type: String,
+      required: true,
     },
     quantityInStock: {
       type: Number,
@@ -37,6 +38,9 @@ const Jewel: Model<IJewel> = model<IJewel>(
     price: {
       type: Number,
       required: true,
+    },
+    description: {
+      type: String,
     },
   })
 );

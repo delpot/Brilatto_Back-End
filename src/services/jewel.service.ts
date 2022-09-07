@@ -6,12 +6,14 @@ class JewelService {
 
   createJewelEntity(
     modelId: string,
-    color: string,
-    photo: string,
+    name: string,
+    photo1: string,
+    photo2: string,
     quantityInStock: number,
-    price: number
+    price: number,
+    description: string
   ) {
-    return jewelRepository.create(modelId, color, photo, quantityInStock, price);
+    return jewelRepository.create(modelId, name, photo1, photo2, quantityInStock, price, description);
   }
   
   async getJewels(): Promise<IJewel[]> {

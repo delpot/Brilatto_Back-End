@@ -29,9 +29,9 @@ class JewelController {
   }
   
   async createJewel(req: Request, res: Response) {
-    const { modelId, color, photo, quantityInStock, price } = req.body;
+    const { modelId, name, photo1, photo2, quantityInStock, price, description } = req.body;
     const model = await modelService.getModelById(modelId);
-    const createdJewel = jewelService.createJewelEntity(modelId, color, photo, quantityInStock, price);
+    const createdJewel = jewelService.createJewelEntity(modelId, name, photo1, photo2, quantityInStock, price, description);
     await createdJewel
       .save()
       .then((createdJewel) => {

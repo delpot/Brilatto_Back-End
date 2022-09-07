@@ -5,12 +5,14 @@ class JewelRepository {
 
   create(
     modelId: string,
-    color: string,
-    photo: string,
+    name: string,
+    photo1: string,
+    photo2: string,
     quantityInStock: number,
-    price: number
+    price: number,
+    description: string
   ) {
-    return new Jewel({ modelId, color, photo, quantityInStock, price });
+    return new Jewel({ modelId, name, photo1, photo2, quantityInStock, price, description });
   }
   
   async findJewels(): Promise<IJewel[]> {
@@ -18,7 +20,7 @@ class JewelRepository {
   }
 
   async findJewelsByModelId(modelId: string): Promise<IJewel[]> {
-    return Jewel.find({ deletedAt: null, modelId }).sort({ _id: -1 });
+    return Jewel.find({ deletedAt: null, modelId });
   }
   
   async findJewelById(id: string): Promise<IJewel> {

@@ -58,7 +58,7 @@ class AuthController {
         {
           expiresIn: '1h',
         }
-      );
+      )
       const { password, ...loggedUser } = user.toObject();
       return res.status(200).json({ loggedUser, token });
     } else {

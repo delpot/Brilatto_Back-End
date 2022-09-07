@@ -12,7 +12,7 @@ class ModelRepository {
   }
 
   async findModelsByCategoryId(categoryId: string): Promise<IJewelModel[]> {
-    return JewelModel.find({ deletedAt: null, categoryId }).sort({ _id: -1 });
+    return JewelModel.find({ deletedAt: null, categoryId });
   }
   
  async findModelById(id: string): Promise<IJewelModel> {
