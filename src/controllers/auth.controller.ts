@@ -16,15 +16,15 @@ class AuthController {
       !passwordToConfirm ||
       !confirmedPassword
     ) {
-      return res.send({ message: '⚠ Missing fields!' });
+      return res.status(400).send({ message: '⚠ Missing fields!' });
     }
   
     if (await userService.getUserByEmail(email)) {
-      return res.send({ message: '⚠ User already exists!' });
+      return res.status(400).send({ message: '⚠ User already exists!' });
     }
   
     if (passwordToConfirm !== confirmedPassword) {
-      return res.send({ message: "⚠ Passwords don't match!" });
+      return res.status(400).send({ message: "⚠ Passwords don't match!" });
     }
   
     return userService.createUser(
@@ -44,7 +44,7 @@ class AuthController {
     const { email, password } = req.body;
   
     if (!email || !password) {
-      return res.send({ message: '⚠ Missing fields!' });
+      return res.status(400).send({ message: '⚠ Missing fields!' });
     }
   
     const user = await userService.getUserByEmail(email);
@@ -62,7 +62,7 @@ class AuthController {
       const { password, ...loggedUser } = user.toObject();
       return res.status(200).json({ loggedUser, token });
     } else {
-      return res.send({ message: '⚠ Wrong credentials!' });
+      return res.status(400).send({ message: '⚠ Wrong credentials!' });
     }
   }
   
