@@ -22,6 +22,11 @@ class AuthController {
     ) {
       return res.status(400).send({ message: '⚠ Missing fields!' });
     }
+
+    const emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    if (!emailPattern.test(email)) {
+      return res.status(400).send({ message: '⚠ Invalid email!' });
+    }
   
     if (await userService.getUserByEmail(email)) {
       return res.status(400).send({ message: '⚠ User already exists!' });
@@ -29,6 +34,11 @@ class AuthController {
   
     if (password !== confirmPassword) {
       return res.status(400).send({ message: "⚠ Passwords don't match!" });
+    }
+
+    const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+    if (!passwordPattern.test(password)) {
+      return res.status(400).send({ message: '⚠ Invalid password!' });
     }
 
     const address = {

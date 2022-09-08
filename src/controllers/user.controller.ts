@@ -39,9 +39,6 @@ class UserController {
     const password = decryptPassword(user.password);
 
     if (user) {
-      console.log('\nMot de passe en db: ' + password)
-      console.log('Ancien mot de passe du form: ' + oldPassword)
-      console.log('Nouveau mot de passe du form: ' + newPassword)
       if (password === oldPassword) {
         user.password = encryptPassword(newPassword);
         await user.save();
