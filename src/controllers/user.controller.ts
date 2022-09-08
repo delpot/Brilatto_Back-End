@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import userService from 'src/services/user.service';
-import { encryptPassword } from '../utils/encryption.util';
+import { decryptPassword, encryptPassword } from '../utils/encryption.util';
 
 class UserController {
 
@@ -20,12 +20,41 @@ class UserController {
       })
       .catch((error) => res.status(500).json(error));
   }
+
+  async updatePassword(req: Request, res: Response) {
+    const {
+      oldPassword,
+      newPassword,
+    } = req.body;
+
+    if (!oldPassword || !newPassword ) {
+      return res.status(400).send({ message: '⚠ Missing fields!' });
+    }
+    const passwordPattern = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+    if (!passwordPattern.test(newPassword)) {
+      return res.status(400).send({ message: '⚠ Invalid password!' });
+    }
+
+    const user = await userService.getUserById(req.params.id);
+    const password = decryptPassword(user.password);
+
+    if (user) {
+      console.log('\nMot de passe en db: ' + password)
+      console.log('Ancien mot de passe du form: ' + oldPassword)
+      console.log('Nouveau mot de passe du form: ' + newPassword)
+      if (password === oldPassword) {
+        user.password = encryptPassword(newPassword);
+        await user.save();
+        res.status(200).json(user);
+      } else {
+        return res.status(400).send({ message: '⚠ Wrong password!' });
+      }
+    } else {
+      return res.status(400).send({ message: '⚠ User not found!' });
+    }
+  }
   
   async updateUser(req: Request, res: Response) {
-    // if (req.body.password) {
-    //   encryptPassword(req.body.password);
-    // }  
-
     const {
       firstname, 
       lastname, 
@@ -37,6 +66,11 @@ class UserController {
       postalCode, 
       country 
     } = req.body;
+
+    const emailPattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
+    if (!emailPattern.test(email)) {
+      return res.status(400).send({ message: '⚠ Invalid email!' });
+    }
 
     const address = {
       addressLine1, 

@@ -8,6 +8,7 @@ class UserRouter {
   .get('/', verifyAdmin, userController.getAllUsers)
   .get('/:id', verifyAuthorization, userController.getOneUser)
   .put('/:id', verifyAuthorization, userController.updateUser)
+  .put('/:id/password', verifyAuthorization, userController.updatePassword)
   .put('/:id/softDelete', verifyAuthorization, userController.softDeleteUser)
   .delete('/:id', verifyAdmin, userController.hardDeleteUser);
 }
