@@ -15,8 +15,8 @@ export interface IUser extends IBase, Document {
   email: string;
   password: string;
   isAdmin: boolean;
+  address: IAddress;
   dateOfBirth?: Date;
-  address?: IAddress;
 }
 
 const User: Model<IUser> = model<IUser>(
@@ -44,12 +44,13 @@ const User: Model<IUser> = model<IUser>(
       type: Boolean,
       default: false,
     },
+    address: {
+      type: Object,
+      required: true,
+    },
     dateOfBirth: {
       type: Date,
       default: null,
-    },
-    address: {
-      type: Object,
     },
   })
 );
