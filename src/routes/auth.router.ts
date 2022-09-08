@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import authController from 'src/controllers/auth.controller';
-import { verifyAuthentication } from 'src/middlewares/auth.middleware';
 
 class AuthRouter {
 
