@@ -2,7 +2,6 @@ import { UserDto } from '../dtos/user.dto';
 import User, { IAddress, IUser } from '../entities/User';
 
 class UserRepository {
-
   create(
     firstname: string,
     lastname: string,
@@ -11,25 +10,29 @@ class UserRepository {
     dateOfBirth: Date,
     address: IAddress
   ) {
-    return new User({ firstname, lastname, email, password, dateOfBirth, address });
+    return new User({
+      firstname,
+      lastname,
+      email,
+      password,
+      dateOfBirth,
+      address,
+    });
   }
-  
+
   async findUsers(): Promise<IUser[]> {
     return User.find({ deletedAt: null }).sort({ _id: -1 });
   }
-  
+
   async findUserById(id: string): Promise<IUser> {
     return User.findById(id);
   }
-  
+
   async findUserByEmail(email: string): Promise<IUser> {
     return User.findOne({ email });
   }
-  
-  async findUserByIdAndUpdate(
-    id: string,
-    userDto: UserDto
-  ): Promise<IUser> {
+
+  async findUserByIdAndUpdate(id: string, userDto: UserDto): Promise<IUser> {
     return User.findByIdAndUpdate(
       id,
       {
@@ -41,7 +44,7 @@ class UserRepository {
       { new: true }
     );
   }
-  
+
   async findUserByIdAndSoftDelete(id: string): Promise<IUser> {
     return User.findByIdAndUpdate(
       id,
@@ -53,11 +56,10 @@ class UserRepository {
       { new: true }
     );
   }
-  
+
   async findUserByIdAndHardDelete(id: string): Promise<void> {
     return User.findByIdAndDelete(id);
   }
-  
 }
 
 const userRepository = new UserRepository();

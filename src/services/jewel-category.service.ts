@@ -3,32 +3,29 @@ import { JewelCategoryDto } from '../dtos/jewel-category.dto';
 import { IJewelCategory } from '../entities/JewelCategory';
 
 class CategoryService {
-
   createJewelCategory(name: string, photo: string, description: string) {
     return categoryRepository.create(name, photo, description);
   }
-  
+
   async getCategories(): Promise<IJewelCategory[]> {
     return categoryRepository.findCategories();
   }
-  
+
   async getCategoryById(id: string): Promise<IJewelCategory> {
     return categoryRepository.findCategoryById(id);
   }
-  
+
   async getCategoryByIdAndUpdate(
     id: string,
     jewelCategoryDto: JewelCategoryDto
   ): Promise<IJewelCategory> {
     return categoryRepository.findCategoryByIdAndUpdate(id, jewelCategoryDto);
   }
-  
-  async getCategoryByIdAndSoftDelete(
-    id: string
-  ): Promise<IJewelCategory> {
+
+  async getCategoryByIdAndSoftDelete(id: string): Promise<IJewelCategory> {
     return categoryRepository.findCategoryByIdAndSoftDelete(id);
   }
-  
+
   async getCategoryByIdAndHardDelete(id: string): Promise<void> {
     return categoryRepository.findCategoryByIdAndHardDelete(id);
   }

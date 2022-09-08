@@ -5,5 +5,5 @@ export class JewelDto {
   photo2: string;
   quantityInStock: number;
   price: number;
-  description: string
+  description: string;
 }

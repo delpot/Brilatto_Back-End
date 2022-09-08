@@ -2,7 +2,6 @@ import { JewelDto } from 'src/dtos/jewel.dto';
 import Jewel, { IJewel } from 'src/entities/Jewel';
 
 class JewelRepository {
-
   create(
     modelId: string,
     name: string,
@@ -12,9 +11,17 @@ class JewelRepository {
     price: number,
     description: string
   ) {
-    return new Jewel({ modelId, name, photo1, photo2, quantityInStock, price, description });
+    return new Jewel({
+      modelId,
+      name,
+      photo1,
+      photo2,
+      quantityInStock,
+      price,
+      description,
+    });
   }
-  
+
   async findJewels(): Promise<IJewel[]> {
     return Jewel.find({ deletedAt: null }).sort({ _id: -1 });
   }
@@ -22,11 +29,11 @@ class JewelRepository {
   async findJewelsByModelId(modelId: string): Promise<IJewel[]> {
     return Jewel.find({ deletedAt: null, modelId });
   }
-  
+
   async findJewelById(id: string): Promise<IJewel> {
     return Jewel.findById(id);
   }
-  
+
   async findJewelByIdAndUpdate(
     id: string,
     jewelDto: JewelDto
@@ -42,7 +49,7 @@ class JewelRepository {
       { new: true }
     );
   }
-  
+
   async findJewelByIdAndSoftDelete(id: string): Promise<IJewel> {
     return Jewel.findByIdAndUpdate(
       id,
@@ -54,11 +61,10 @@ class JewelRepository {
       { new: true }
     );
   }
-  
+
   async findJewelByIdAndHardDelete(id: string): Promise<void> {
     return Jewel.findByIdAndDelete(id);
   }
-  
 }
 
 const jewelRepository = new JewelRepository();

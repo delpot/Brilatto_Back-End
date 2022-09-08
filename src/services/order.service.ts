@@ -5,7 +5,6 @@ import { IAddress } from 'src/entities/User';
 import orderRepository from 'src/repositories/order.repository';
 
 class OrderService {
-
   createOrderEntity(
     userId: string,
     jewels: IJewel[],
@@ -13,24 +12,27 @@ class OrderService {
     shippingAddress: IAddress,
     status: string
   ) {
-    return orderRepository.create(userId, jewels, total, shippingAddress, status);
+    return orderRepository.create(
+      userId,
+      jewels,
+      total,
+      shippingAddress,
+      status
+    );
   }
-  
+
   async getOrders(): Promise<IOrder[]> {
     return orderRepository.findOrders();
   }
-  
+
   async getOrdersByUserId(userId: string): Promise<IOrder[]> {
     return orderRepository.findOrdersByUserId(userId);
   }
-  
-  async getOrderByIdAndUpdate(
-    id: string,
-    orderDto: OrderDto
-  ): Promise<IOrder> {
+
+  async getOrderByIdAndUpdate(id: string, orderDto: OrderDto): Promise<IOrder> {
     return orderRepository.findOrderByIdAndUpdate(id, orderDto);
   }
-  
+
   async getOrderByIdAndSoftDelete(id: string): Promise<IOrder> {
     return orderRepository.findOrderByIdAndSoftDelete(id);
   }
@@ -42,4 +44,3 @@ class OrderService {
 const orderService = new OrderService();
 
 export default orderService;
-

@@ -3,9 +3,9 @@ import modelService from 'src/services/jewel-model.service';
 import jewelService from 'src/services/jewel.service';
 
 class JewelController {
-
   async getAllJewels(req: Request, res: Response) {
-    return jewelService.getJewels()
+    return jewelService
+      .getJewels()
       .then((jewels) => {
         return res.status(200).json(jewels);
       })
@@ -13,23 +13,33 @@ class JewelController {
   }
 
   public async getAllJewelsByModelId(req: Request, res: Response) {
-    return jewelService.getJewelsByModelId(req.params.modelId)
+    return jewelService
+      .getJewelsByModelId(req.params.modelId)
       .then((jewels) => {
         return res.status(200).json(jewels);
       })
       .catch((error) => res.status(500).json(error));
   }
-  
+
   async getOneJewel(req: Request, res: Response) {
-    return jewelService.getJewelById(req.params.id)
+    return jewelService
+      .getJewelById(req.params.id)
       .then((jewel) => {
         return res.status(200).json(jewel.toObject());
       })
       .catch((error) => res.status(500).json(error));
   }
-  
+
   async createJewel(req: Request, res: Response) {
-    const { modelId, name, photo1, photo2, quantityInStock, price, description } = req.body;
+    const {
+      modelId,
+      name,
+      photo1,
+      photo2,
+      quantityInStock,
+      price,
+      description,
+    } = req.body;
     if (
       !name ||
       !photo1 ||
@@ -41,7 +51,15 @@ class JewelController {
       return res.status(400).send({ message: '⚠ Missing fields!' });
     }
     const model = await modelService.getModelById(modelId);
-    const createdJewel = jewelService.createJewelEntity(modelId, name, photo1, photo2, quantityInStock, price, description);
+    const createdJewel = jewelService.createJewelEntity(
+      modelId,
+      name,
+      photo1,
+      photo2,
+      quantityInStock,
+      price,
+      description
+    );
     await createdJewel
       .save()
       .then((createdJewel) => {
@@ -52,25 +70,28 @@ class JewelController {
     await model.save();
     return createdJewel;
   }
-  
+
   async updateJewel(req: Request, res: Response) {
-    return jewelService.getJewelByIdAndUpdate(req.params.id, req.body)
+    return jewelService
+      .getJewelByIdAndUpdate(req.params.id, req.body)
       .then((updatedJewel) => {
         res.status(201).json(updatedJewel);
       })
       .catch((error) => res.status(500).json(error));
   }
-  
+
   async softDeleteJewel(req: Request, res: Response) {
-    return jewelService.getJewelByIdAndSoftDelete(req.params.id)
+    return jewelService
+      .getJewelByIdAndSoftDelete(req.params.id)
       .then((softDeletedJewel) => {
         res.status(201).json(softDeletedJewel);
       })
       .catch((error) => res.status(500).json(error));
   }
-  
+
   async hardDeleteJewel(req: Request, res: Response) {
-    return jewelService.getJewelByIdAndHardDelete(req.params.id)
+    return jewelService
+      .getJewelByIdAndHardDelete(req.params.id)
       .then((deletedJewel) => {
         res.status(200).json(deletedJewel);
       })

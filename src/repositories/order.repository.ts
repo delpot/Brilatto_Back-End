@@ -4,7 +4,6 @@ import Order, { IOrder } from 'src/entities/Order';
 import { IAddress } from 'src/entities/User';
 
 class OrderRepository {
-
   create(
     userId: string,
     jewels: IJewel[],
@@ -14,15 +13,15 @@ class OrderRepository {
   ) {
     return new Order({ userId, jewels, total, shippingAddress, status });
   }
-  
+
   async findOrders(): Promise<IOrder[]> {
     return Order.find({ deletedAt: null }).sort({ _id: -1 });
   }
-  
+
   async findOrdersByUserId(userId: string): Promise<IOrder[]> {
     return Order.find({ userId });
   }
-  
+
   async findOrderByIdAndUpdate(
     id: string,
     orderDto: OrderDto
@@ -38,7 +37,7 @@ class OrderRepository {
       { new: true }
     );
   }
-  
+
   async findOrderByIdAndSoftDelete(id: string): Promise<IOrder> {
     return Order.findByIdAndUpdate(
       id,
@@ -50,11 +49,10 @@ class OrderRepository {
       { new: true }
     );
   }
-  
+
   async findOrderByIdAndHardDelete(id: string): Promise<void> {
     return Order.findByIdAndDelete(id);
   }
-  
 }
 
 const orderRepository = new OrderRepository();
